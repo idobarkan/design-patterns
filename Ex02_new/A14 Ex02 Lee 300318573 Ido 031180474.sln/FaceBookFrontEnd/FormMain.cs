@@ -19,6 +19,8 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private User m_LoggedInUser;
         private FacebookBackend m_FacebookEnd;
         
+
+
         public FacebookForm(User i_LoggedIngUser, FacebookBackend i_FacebookEnd)
         {
             InitializeComponent();
