@@ -1,32 +1,41 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CheckInsFriendsRecommender.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacebookWrapper.ObjectModel;
+using FacebookWrapper;
+using System.Linq.Expressions;
 
 namespace FaceBookBackEnd
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using FacebookWrapper.ObjectModel;
-    using FacebookWrapper;
-    using System.Linq.Expressions;
-
     internal class CheckInsFriendsRecommender : IFriendsRecommender
     {
+        private DateTime m_lastTimeCheckinsFetched { get; set; }
+        private List<Checkin> m_cachedUserCheckins;
+
+        public CheckInsFriendsRecommender()
+        {
+            m_lastTimeCheckinsFetched = DateTime.MinValue;
+            m_cachedUserCheckins = new List<Checkin>();
+        }
+
         public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
         {
-            var aggregatedCheckins = new List<Checkin>();
-            foreach (var checkin in i_LoggedInUser.Checkins)
-            {
-                aggregatedCheckins.Add(checkin);
-            }
-            var sortedCheckinsByCreateTime = aggregatedCheckins.Select(x => x)
-                            .OrderBy<Checkin, TKey>(i_OrderByFunc as Func<Checkin, TKey>)
-                                    .Reverse();
+            fetchCheckinsIfNeeded(i_LoggedInUser);
+
+            var sortedCheckinsByCreateTime = m_cachedUserCheckins.Select(x => x)
+                                                .OrderBy<Checkin, TKey>(i_OrderByFunc as Func<Checkin, TKey>)
+                                                .Reverse();
             return getFriendSuggestionsFromCheckins(i_LoggedInUser, sortedCheckinsByCreateTime, i_MaxResults);
+        }
+
+        private void fetchCheckinsIfNeeded(User i_LoggedInUser)
+        {
+            if (DateTime.Now - m_lastTimeCheckinsFetched > TimeSpan.FromMinutes(2))
+            {
+                m_cachedUserCheckins = new List<Checkin>(i_LoggedInUser.Checkins);
+                m_lastTimeCheckinsFetched = DateTime.Now;
+            }
         }
 
         private List<User> getFriendSuggestionsFromCheckins(
@@ -53,7 +62,7 @@ namespace FaceBookBackEnd
                 }
                 catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
                 {
-                    // this is sometimes thrown from facebook Dll for an un known reason
+                    // this is sometimes thrown from facebook Dll for an unknown reason
                 }
             }
             return suggestedUsers.Select(x => x).Take(i_MaxResults).ToList();

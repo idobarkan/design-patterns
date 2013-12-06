@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckInsFriendsRecommender.cs" />
+    <Compile Include="FriendsRecommenderProxy.cs" />
     <Compile Include="RecommendationSortKey.cs" />
     <Compile Include="EventsFriendsRecommender.cs" />
     <Compile Include="FacebookBackend.cs" />

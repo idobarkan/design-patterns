@@ -1,10 +1,11 @@
 ex 03 todo:
 	* convert FacebookBackend to singleton - ido
 	* factory method to create GoogleMapsLocationProvider - ido
+	DONE * add proxy for recommender - ido
 	* update sequence diagram- ido
 	* later - add proxy/facade patterns - ido
 	* class diagram- lee
 	* UI refactoring- automatic data binding- lee
-	* consistent appsettins (optional) - lee
+	* consistent "appsettings" (optional) - lee
 	
 	

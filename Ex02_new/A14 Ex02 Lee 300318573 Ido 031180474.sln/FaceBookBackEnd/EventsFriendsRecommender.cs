@@ -16,19 +16,33 @@ namespace FaceBookBackEnd
 
     internal class EventsFriendsRecommender : IFriendsRecommender
     {
+        private DateTime m_lastTimeEventsFetched { get; set; }
+        private List<Event> m_cachedUserEvents;
+
+        public EventsFriendsRecommender()
+        {
+            m_lastTimeEventsFetched = DateTime.MinValue;
+            m_cachedUserEvents = new List<Event>();
+        }
+
         public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
         {
-            var aggregatedEvents = new List<Event>();
+            fetchEventsIfNeeded(i_LoggedInUser);
 
-            foreach (var event_ in i_LoggedInUser.Events)
-            {
-                aggregatedEvents.Add(event_);
-            }
-            var sortedPhotosByUpdateTime = aggregatedEvents.Select(x => x).ToList()
-                                    .OrderBy<Event, TKey>(i_OrderByFunc as Func<Event, TKey>)
-                                    .Reverse();
+            var sortedPhotosByUpdateTime = m_cachedUserEvents.Select(x => x)
+                                            .OrderBy<Event, TKey>(i_OrderByFunc as Func<Event, TKey>)
+                                            .Reverse();
 
             return getFriendSuggestionsFromEvents(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
+        }
+
+        private void fetchEventsIfNeeded(User i_LoggedInUser)
+        {
+            if (DateTime.Now - m_lastTimeEventsFetched > TimeSpan.FromMinutes(2))
+            {
+                m_cachedUserEvents = new List<Event>(i_LoggedInUser.Events);
+                m_lastTimeEventsFetched = DateTime.Now;
+            }
         }
 
         private List<User> getFriendSuggestionsFromEvents(
