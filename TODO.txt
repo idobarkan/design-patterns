@@ -1,5 +1,5 @@
 ex 03 todo:
-	* convert FacebookBackend to singleton - ido
+	DONE * convert FacebookBackend to singleton - ido
 	* factory method to create GoogleMapsLocationProvider - ido
 	DONE * add proxy for recommender - ido
 	* update sequence diagram- ido

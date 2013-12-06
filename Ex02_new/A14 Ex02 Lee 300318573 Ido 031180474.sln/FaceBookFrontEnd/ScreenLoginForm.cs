@@ -23,7 +23,7 @@ namespace FaceBookFrontEnd
         public ScreenLoginForm()
         {
             InitializeComponent();
-            m_FacebookEnd = new FacebookBackend();
+            m_FacebookEnd = FacebookBackend.Instance;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)

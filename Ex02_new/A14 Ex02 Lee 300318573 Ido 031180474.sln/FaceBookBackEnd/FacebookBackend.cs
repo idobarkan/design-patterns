@@ -10,8 +10,32 @@ namespace FaceBookBackEnd
 {
     public class FacebookBackend : IAuthenticator, IFriendSuggestionsProvider
     {
+        private static FacebookBackend s_Instance = null;
+        private static object s_LockObj = new Object();
+
         private LogIner m_LogIner = new LogIner();
         private IFriendSuggestionsProvider m_CheckInsFriendsRecommenderProxy = new FriendsRecommenderProxy();
+
+        private FacebookBackend() { }
+
+        public static FacebookBackend Instance
+        {
+            get
+            {
+                if (s_Instance == null)
+                {
+                    lock (s_LockObj)
+                    {
+                        if (s_Instance == null)
+                        {
+                            s_Instance = new FacebookBackend();
+                        }
+                    }
+                }
+
+                return s_Instance;
+            }
+        }
 
         public User LogIn()
         {
