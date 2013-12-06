@@ -11,9 +11,6 @@ namespace FindTagsAround
     using System.Linq;
     using System.Text;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class Coordinate
     {
         public double Longtitude

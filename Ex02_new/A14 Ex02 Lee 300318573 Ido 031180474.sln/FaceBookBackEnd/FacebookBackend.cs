@@ -10,7 +10,6 @@ namespace FaceBookBackEnd
 {
     public class FacebookBackend : IAuthenticator, IFriendSuggestionsProvider
     {
-        // just a comment
         private LogIner m_LogIner = new LogIner();
         private IFriendsRecommender m_CheckInsFriendsRecommender = new CheckInsFriendsRecommender();
         private IFriendsRecommender m_PhotosFriendsRecommender = new PhotosFriendsRecommender();

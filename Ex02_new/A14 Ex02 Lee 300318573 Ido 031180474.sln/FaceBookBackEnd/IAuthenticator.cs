@@ -12,9 +12,6 @@ namespace FaceBookBackEnd
     using System.Text;
     using FacebookWrapper.ObjectModel;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface IAuthenticator
     {
         User LogIn();

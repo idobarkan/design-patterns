@@ -7,7 +7,6 @@ namespace FindTagsAround
     using System.Text;
     using FacebookWrapper.ObjectModel;
 
-    /// <summary>
     public class FacebookCheckInVicinityProvider : ICheckInVicinityProvider
     {
         public List<Checkin> getAllUserFriendsRecentTags(

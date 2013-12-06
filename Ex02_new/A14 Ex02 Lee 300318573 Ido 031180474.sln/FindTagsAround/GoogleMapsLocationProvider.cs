@@ -15,9 +15,7 @@ namespace FindTagsAround
     using System.Xml.Linq;
     using System.Xml;
     using System.IO;
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+
     public class GoogleMapsLocationProvider : ILocationProvider
     {
         private string m_GoogleMapsKey = "AIzaSyBYpkC0V-CGuJX1pDC8Rr8nuF4ISACDjiE";
@@ -25,8 +23,7 @@ namespace FindTagsAround
         public Coordinate GetLocationCoordinates(string i_LocationReference)
         {
             var responseStream = getLocationResponseStream(i_LocationReference);
-            var result = getLocationFromResponseXml(responseStream);
-            return result;
+            return getLocationFromResponseXml(responseStream);
         }
 
         public List<GoogleMapsReference> GetLocationSuggestions(string userInput)

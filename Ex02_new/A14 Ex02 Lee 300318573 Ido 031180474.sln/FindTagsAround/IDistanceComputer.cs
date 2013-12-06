@@ -12,9 +12,6 @@ namespace FindTagsAround
     using System.Text;
     using FacebookWrapper.ObjectModel;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface IDistanceComputer
     {
         bool IsNear(Coordinate i_Center, double i_RadiusMeters, Coordinate i_TagLocation);

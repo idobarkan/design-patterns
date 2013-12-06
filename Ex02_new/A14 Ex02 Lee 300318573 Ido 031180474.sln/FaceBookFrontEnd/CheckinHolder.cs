@@ -74,10 +74,10 @@ namespace FaceBookFrontEnd
                 else
                 {
                     friendCoordinate = new Coordinate((double)checkin.Place.Location.Latitude, (double)checkin.Place.Location.Longitude);
-                }
                     if (distanceComputer.IsNear(friendCoordinate, userDistance, userCoordinates))
-                {
-                    CheckinByPlace.Add(checkin);
+                    {
+                        CheckinByPlace.Add(checkin);
+                    }
                 }
             }
         }
