@@ -1,20 +1,15 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GoogleMapsLocationProvider.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacebookWrapper.ObjectModel;
+using System.Net;
+using System.Xml.Linq;
+using System.Xml;
+using System.IO;
 
 namespace FindTagsAround
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using FacebookWrapper.ObjectModel;
-    using System.Net;
-    using System.Xml.Linq;
-    using System.Xml;
-    using System.IO;
 
     public class GoogleMapsLocationProvider : ILocationProvider
     {
@@ -35,7 +30,7 @@ namespace FindTagsAround
 
         private Stream getLocationResponseStream(string i_LocationReference)
         {
-            var requestUri = string.Format(
+            string requestUri = string.Format(
                 "https://maps.googleapis.com/maps/api/place/details/xml?reference={0}&sensor=false&key={1}",
                 Uri.EscapeDataString(i_LocationReference),
                 m_GoogleMapsKey);
@@ -68,7 +63,7 @@ namespace FindTagsAround
             {
                 var reference = prediction.Descendants("reference").Select(x => x.Value).Single();
                 var description = prediction.Descendants("description").Select(x => x.Value).Single();
-                result.Add(new GoogleMapsReference(description, reference));
+                result.Add(new GoogleMapsReference(){Description=description, Reference=reference});
             }
             return result;
         }
@@ -82,9 +77,8 @@ namespace FindTagsAround
             var lng = location.Descendants("lng").Select(x => x.Value).Single();
             double parsedLat;
             double parsedLong;
-            var latitudeParsed = Double.TryParse(lat, out parsedLat);
-            var longtitudeParsed = Double.TryParse(lng, out parsedLong);
-            if (!latitudeParsed || !longtitudeParsed)
+            if (!Double.TryParse(lat, out parsedLat) 
+                || !Double.TryParse(lng, out parsedLong))
             {
                 throw new Exception("error in parsing geometry");
             }

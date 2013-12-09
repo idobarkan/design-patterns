@@ -10,19 +10,13 @@ namespace FindTagsAround
         public string Reference
         {
             get;
-            private set;
+            set;
         }
 
         public string Description
         {
             get;
-            private set;
-        }
-
-        public GoogleMapsReference(string i_description, string i_reference)
-        {
-            Description = i_description;
-            Reference = i_reference;
+            set;
         }
     }
 }
