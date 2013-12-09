@@ -49,8 +49,8 @@ namespace FaceBookFrontEnd
             }
             return reference;
         }
-        
-        internal void setRecentCheckins(User i_LoggedUser, DateTime i_Date, String i_SortBy, int i_MaxCount)
+
+        internal void setRecentCheckins(User i_LoggedUser, DateTime i_Date, FindTagsAround.eRecommendationSortKey i_SortBy, int i_MaxCount)
         {
             FacebookCheckInVicinityProvider fbVicinityProv = new FacebookCheckInVicinityProvider();
             m_RecentCheckins = fbVicinityProv.getAllUserFriendsRecentTags(i_LoggedUser, i_Date, i_SortBy, i_MaxCount);

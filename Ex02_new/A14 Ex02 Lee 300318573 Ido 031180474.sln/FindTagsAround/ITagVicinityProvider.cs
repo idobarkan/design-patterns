@@ -19,6 +19,6 @@ namespace FindTagsAround
     public interface ICheckInVicinityProvider
     {
         List<Checkin> getAllUserFriendsRecentTags(
-            User i_LoggedInUser, DateTime i_Oldest, string i_Sortby, int i_Max_count);
+            User i_LoggedInUser, DateTime i_Oldest, eRecommendationSortKey i_Sortby, int i_Max_count);
     }
 }

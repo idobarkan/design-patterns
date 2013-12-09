@@ -24,7 +24,7 @@ namespace FaceBookFrontEnd
         private ErrorProvider m_ErrorProviderText;
         private double UserDistance { get; set; }
         private int MaxCount { get; set; }
-        private String SortBy { get; set; }
+        private FindTagsAround.eRecommendationSortKey SortBy { get; set; }
         private String UserLocation { get; set; }
         private DateTime Date { get; set; }
 
@@ -62,7 +62,9 @@ namespace FaceBookFrontEnd
         private void initializeUserCheckinInput()
         {
             UserDistance = Convert.ToDouble(textBoxDistance.Text);
-            SortBy = comboBoxSortBy.SelectedItem.ToString();
+            SortBy = (FindTagsAround.eRecommendationSortKey) Enum.Parse(
+                typeof(FindTagsAround.eRecommendationSortKey), 
+                comboBoxSortBy.SelectedItem.ToString());
             MaxCount = Int32.Parse(comboBoxMaxCount.SelectedItem.ToString());
             Date = dateTimePickerUser.Value.Date;
         }

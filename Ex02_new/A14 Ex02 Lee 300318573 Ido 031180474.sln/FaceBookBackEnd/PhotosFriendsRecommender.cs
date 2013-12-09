@@ -22,6 +22,7 @@ namespace FaceBookBackEnd
         public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
         {
             fetchPhotosIfNeeded(i_LoggedInUser);
+
             var sortedPhotosByUpdateTime = m_cachedUserPhotos.Select(x => x)
                                             .OrderBy<Photo, TKey>(i_OrderByFunc as Func<Photo, TKey>)
                                             .Reverse();
