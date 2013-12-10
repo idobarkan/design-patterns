@@ -1,0 +1,665 @@
+<Project>
+  <Name>FaceBook</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>FaceBookBackEnd</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CheckInsFriendsRecommender</Name>
+        <Access>Internal</Access>
+        <Location left="107" top="315" />
+        <Size width="252" height="126" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public List&lt;User&gt; GetSuggestions&lt;T, TKey&gt;()</Member>
+        <Member type="Method">private void getFriendSuggestionsFromCheckins()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IFriendsRecommender</Name>
+        <Access>Public</Access>
+        <Location left="468" top="315" />
+        <Size width="243" height="86" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">List&lt;User&gt; GetSuggestions&lt;T, TKey&gt;()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>FacebookBackend</Name>
+        <Access>Public</Access>
+        <Location left="34" top="32" />
+        <Size width="325" height="186" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private LogIner m_LogIner</Member>
+        <Member type="Field">private IFriendsRecommender m_CheckInsFriendsRecommender</Member>
+        <Member type="Field">private IFriendsRecommender m_EventsFriendsRecommender</Member>
+        <Member type="Field">IFriendsRecommender m_PhotosFriendsRecommender</Member>
+        <Member type="Method">public List&lt;User&gt; GetSuggestion&lt;T, TKey&gt;()</Member>
+        <Member type="Method">public User LogIn()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IAuthenticator</Name>
+        <Access>Public</Access>
+        <Location left="483" top="32" />
+        <Size width="162" height="85" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">User IAuthenticator()</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IFriendSuggestionsProvider</Name>
+        <Access>Public</Access>
+        <Location left="468" top="137" />
+        <Size width="243" height="85" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">List&lt;User&gt; GetSuggestions&lt;T, TKey&gt;()</Member>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="0" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="2" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="2" second="4">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="2" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1..*</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>FindTagsAround.dll</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IDistanceComputer</Name>
+        <Access>Public</Access>
+        <Location left="878" top="296" />
+        <Size width="162" height="92" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">Boolean IsNear(Coordinate i_Center, Double i_RadiusMeters, Coordinate i_TagLocation)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ICheckInVicinityProvider</Name>
+        <Access>Public</Access>
+        <Location left="632" top="397" />
+        <Size width="162" height="92" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">List&lt;Checkin&gt; getAllUserFriendsRecentTags(User i_LoggedInUser, DateTime i_Oldest, String i_Sortby, Int32 i_Max_count)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILocationProvider</Name>
+        <Access>Public</Access>
+        <Location left="420" top="415" />
+        <Size width="162" height="107" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">Coordinate GetLocationCoordinates(String i_googleMapsReference)</Member>
+        <Member type="Method">List&lt;GoogleMapsReference&gt; GetLocationSuggestions(String userInput)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>GoogleMapsReference</Name>
+        <Access>Public</Access>
+        <Location left="12" top="386" />
+        <Size width="353" height="141" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String Reference { get; private set; }</Member>
+        <Member type="Property">public String Description { get; private set; }</Member>
+        <Member type="Constructor">public GoogleMapsReference(String i_description, String i_reference)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GeographicalDistanceComputer</Name>
+        <Access>Public</Access>
+        <Location left="648" top="12" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public GeographicalDistanceComputer()</Member>
+        <Member type="Method">public Boolean IsNear(Coordinate i_Center, Double i_RadiusMeters, Coordinate i_TagLocation)</Member>
+        <Member type="Method">private Double distanceMeters(Double lat1, Double lon1, Double lat2, Double lon2)</Member>
+        <Member type="Method">private Double deg2rad(Double I_Deg)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Coordinate</Name>
+        <Access>Public</Access>
+        <Location left="436" top="12" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Double Longtitude { get; private set; }</Member>
+        <Member type="Property">public Double Latitude { get; private set; }</Member>
+        <Member type="Constructor">public Coordinate(Double i_lattitude, Double i_longtitude)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FacebookCheckInVicinityProvider</Name>
+        <Access>Public</Access>
+        <Location left="224" top="12" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public FacebookCheckInVicinityProvider()</Member>
+        <Member type="Method">public List&lt;Checkin&gt; getAllUserFriendsRecentTags(User i_LoggedInUser, DateTime i_Oldest, String i_Sortby, Int32 i_Max_count)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GoogleMapsLocationProvider</Name>
+        <Access>Public</Access>
+        <Location left="12" top="12" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String m_GoogleMapsKey</Member>
+        <Member type="Constructor">public GoogleMapsLocationProvider()</Member>
+        <Member type="Method">public Coordinate GetLocationCoordinates(String i_LocationReference)</Member>
+        <Member type="Method">public List&lt;GoogleMapsReference&gt; GetLocationSuggestions(String userInput)</Member>
+        <Member type="Method">private Stream getLocationResponseStream(String i_LocationReference)</Member>
+        <Member type="Method">private Stream sendRequestAndGetResponseStream(String requestUri)</Member>
+        <Member type="Method">private Stream getSuggestionsResponseStream(String userInput)</Member>
+        <Member type="Method">private List&lt;GoogleMapsReference&gt; getSuggestionsFromResponseXml(Stream xmlStream)</Member>
+        <Member type="Method">private Coordinate getLocationFromResponseXml(Stream xmlStream)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="4" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="6" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="7" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>FaceBookBackEnd.dll</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IAuthenticator</Name>
+        <Access>Public</Access>
+        <Location left="1088" top="368" />
+        <Size width="162" height="106" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">User LogIn()</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IFriendsRecommender</Name>
+        <Access>Internal</Access>
+        <Location left="627" top="411" />
+        <Size width="212" height="103" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">List&lt;User&gt; GetSuggestions()</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IFriendSuggestionsProvider</Name>
+        <Access>Public</Access>
+        <Location left="878" top="368" />
+        <Size width="186" height="106" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">List&lt;User&gt; GetSuggestions()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>PhotosFriendsRecommender</Name>
+        <Access>Internal</Access>
+        <Location left="12" top="544" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public PhotosFriendsRecommender()</Member>
+        <Member type="Method">public List&lt;User&gt; GetSuggestions(User i_LoggedInUser, Int32 i_MaxResults, Func&lt;T, TKey&gt; i_OrderByFunc)</Member>
+        <Member type="Method">private List&lt;User&gt; getFriendSuggestionsFromPhotos(User i_LoggedInUser, IEnumerable&lt;Photo&gt; photos, Int32 i_MaxResults)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EventsFriendsRecommender</Name>
+        <Access>Internal</Access>
+        <Location left="12" top="303" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public EventsFriendsRecommender()</Member>
+        <Member type="Method">public List&lt;User&gt; GetSuggestions(User i_LoggedInUser, Int32 i_MaxResults, Func&lt;T, TKey&gt; i_OrderByFunc)</Member>
+        <Member type="Method">private List&lt;User&gt; getFriendSuggestionsFromEvents(User i_LoggedInUser, IEnumerable&lt;Event&gt; events, Int32 i_MaxResults)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FacebookBackend</Name>
+        <Access>Public</Access>
+        <Location left="696" top="12" />
+        <Size width="390" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private LogIner m_LogIner</Member>
+        <Member type="Field">private IFriendsRecommender m_CheckInsFriendsRecommender</Member>
+        <Member type="Field">private IFriendsRecommender m_PhotosFriendsRecommender</Member>
+        <Member type="Field">private IFriendsRecommender m_EventsFriendsRecommender</Member>
+        <Member type="Constructor">public FacebookBackend()</Member>
+        <Member type="Method">public User LogIn()</Member>
+        <Member type="Method">public List&lt;User&gt; GetSuggestions()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CheckInsFriendsRecommender</Name>
+        <Access>Internal</Access>
+        <Location left="368" top="12" />
+        <Size width="280" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public CheckInsFriendsRecommender()</Member>
+        <Member type="Method">public List&lt;User&gt; GetSuggestions()</Member>
+        <Member type="Method">private List&lt;User&gt; getFriendSuggestionsFromCheckins()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LogIner</Name>
+        <Access>Internal</Access>
+        <Location left="1201" top="12" />
+        <Size width="162" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private User m_LoggedInUser</Member>
+        <Member type="Field">private readonly String APP_ID</Member>
+        <Member type="Field">private String m_AccessToken</Member>
+        <Member type="Constructor">public LogIner()</Member>
+        <Member type="Method">public User LogIn()</Member>
+        <Member type="Method">private Void checkLogInResult(LoginResult loginResult)</Member>
+        <Member type="Method">private LoginResult tryLogInWithAppID()</Member>
+        <Member type="Method">private String tryGetAccessTokenFromDisk()</Member>
+        <Member type="Method">private Void saveAccessTokenToDisk()</Member>
+        <Member type="Method">private String getAccessTokenFilePath()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>eRecommendationSortKey</Name>
+        <Access>Public</Access>
+        <Location left="201" top="12" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>CreateTime = 0</Value>
+        <Value>Likes = 1</Value>
+        <Value>Comments = 2</Value>
+        <Value>StartTime = 3</Value>
+        <Value>AttendingUsers = 4</Value>
+        <Value>WallPosts = 5</Value>
+        <Value>UpdateTime = 6</Value>
+        <Value>Tags = 7</Value>
+        <Value>None = 8</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>eRecommendationSource</Name>
+        <Access>Public</Access>
+        <Location left="12" top="12" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Checkins = 0</Value>
+        <Value>Photos = 1</Value>
+        <Value>Events = 2</Value>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="3" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>602</X>
+          <Y>500</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="4" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>602</X>
+          <Y>470</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1081</X>
+          <Y>268</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1003</X>
+          <Y>300</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="6" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>461</X>
+          <Y>200</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>583</X>
+          <Y>443</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="5" second="7">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_LogIner</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>941</X>
+          <Y>266</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>810</X>
+          <Y>386</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_CheckInsFriendsRecommender</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>664</X>
+          <Y>166</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>664</X>
+          <Y>386</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_PhotosFriendsRecommender</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>769</X>
+          <Y>261</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>769</X>
+          <Y>386</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_EventsFriendsRecommender</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>FaceBookFrontEnd.exe</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>SuggestFriendsForm</Name>
+        <Access>Public</Access>
+        <Location left="589" top="42" />
+        <Size width="162" height="502" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private ListBox listBoxSuggestedByPhotos</Member>
+        <Member type="Field">private Button buttonSuggestByPhotos</Member>
+        <Member type="Field">private Button buttonSuggestedByEvent</Member>
+        <Member type="Field">private ListBox listBoxSuggestedByEvent</Member>
+        <Member type="Field">private Label labelnumOfResult</Member>
+        <Member type="Field">private TextBox textBoxMaxResults</Member>
+        <Member type="Field">private PictureBox pictureBoxFriendByPhoto</Member>
+        <Member type="Field">private Label label1</Member>
+        <Member type="Field">private PictureBox pictureBoxFriendByEvent</Member>
+        <Member type="Field">private Label label2</Member>
+        <Member type="Field">private User m_LoggedInUser</Member>
+        <Member type="Field">private FacebookBackend m_Fb</Member>
+        <Member type="Field">private Utilities m_Util</Member>
+        <Member type="Field">private ErrorProvider m_ErrorProvider</Member>
+        <Member type="Constructor">public SuggestFriendsForm(User i_LoginUser, FacebookBackend i_Fb)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Member type="Method">private Boolean validateControls(Func&lt;String, Boolean&gt; isValid, params Control[] ControlsToValidate)</Member>
+        <Member type="Method">private Void buttonSuggestByPhotos_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void suggestFriendsByPhotos()</Member>
+        <Member type="Method">private Void suggestFriendsByEvents()</Member>
+        <Member type="Method">private Void buttonSuggestedByEvent_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void listBoxSuggestedByPhotos_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void listBoxSuggestedByEvent_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Program</Name>
+        <Access>Internal</Access>
+        <Location left="310" top="695" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">private static Void Main()</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FacebookForm</Name>
+        <Access>Public</Access>
+        <Location left="821" top="330" />
+        <Size width="162" height="757" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private User m_LoggedInUser</Member>
+        <Member type="Field">private FacebookBackend m_FacebookEnd</Member>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private PictureBox pictureBoxFriend</Member>
+        <Member type="Field">private PictureBox picture_smallPictureBox</Member>
+        <Member type="Field">private ListBox listBoxFriends</Member>
+        <Member type="Field">private ListBox listBoxEvents</Member>
+        <Member type="Field">private Label label3</Member>
+        <Member type="Field">private TextBox textBoxStatus</Member>
+        <Member type="Field">private Button buttonSetStatus</Member>
+        <Member type="Field">private ListBox listBoxNewsFeed</Member>
+        <Member type="Field">private PictureBox pictureBoxEvent</Member>
+        <Member type="Field">private LinkLabel linkFriends</Member>
+        <Member type="Field">private LinkLabel labelEvents</Member>
+        <Member type="Field">private Button FindFriendsCheckin</Member>
+        <Member type="Field">private ListBox listBoxCheckins</Member>
+        <Member type="Field">private LinkLabel linkLabelCheckins</Member>
+        <Member type="Field">private Button buttonSuggestFriends</Member>
+        <Member type="Field">private ListBox listBoxStatus</Member>
+        <Member type="Field">private LinkLabel linkLabelNewsFedds</Member>
+        <Member type="Field">private Label label1</Member>
+        <Member type="Constructor">public FacebookForm(User i_LoggedIngUser, FacebookBackend i_FacebookEnd)</Member>
+        <Member type="Method">private Void loadPictureAndStatus()</Member>
+        <Member type="Method">private Void FindFriendsCheckin_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void buttonSuggestFriends_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void buttonSetStatus_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void fetchNewsFeed()</Member>
+        <Member type="Method">private Void linkFriends_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Member type="Method">private Void fetchFriends()</Member>
+        <Member type="Method">private Void listBoxFriends_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void displayStatus()</Member>
+        <Member type="Method">private Void displaySelectedFriend()</Member>
+        <Member type="Method">private Void labelEvents_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Member type="Method">private Void fetchEvents()</Member>
+        <Member type="Method">private Void listBoxEvents_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void fetchCheckins()</Member>
+        <Member type="Method">private Void linkLabelCheckins_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Member type="Method">private Void linkLabelNewsFedds_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FindCheckinByLocationForm</Name>
+        <Access>Public</Access>
+        <Location left="12" top="42" />
+        <Size width="162" height="893" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private Label insertLocationLbl</Member>
+        <Member type="Field">private TextBox textBoxLocation</Member>
+        <Member type="Field">private Label chooseDateLbl</Member>
+        <Member type="Field">private DateTimePicker dateTimePickerUser</Member>
+        <Member type="Field">private Label chooseDistanceLbl</Member>
+        <Member type="Field">private TextBox textBoxDistance</Member>
+        <Member type="Field">private ListBox listBoxAddressSuggestion</Member>
+        <Member type="Field">private ListBox listBoxCheckinByPlace</Member>
+        <Member type="Field">private Label labelSortBy</Member>
+        <Member type="Field">private Label labelMaxCount</Member>
+        <Member type="Field">private ComboBox comboBoxSortBy</Member>
+        <Member type="Field">private ComboBox comboBoxMaxCount</Member>
+        <Member type="Field">private LinkLabel linkLabelComments</Member>
+        <Member type="Field">private LinkLabel linkLabelLikes</Member>
+        <Member type="Field">private PictureBox pictureBoxCheckinUser</Member>
+        <Member type="Field">private Button ButtonCheckin</Member>
+        <Member type="Field">private ListBox listBoxViewCheckinLikes</Member>
+        <Member type="Field">private ListBox listBoxViewCheckinComments</Member>
+        <Member type="Field">private Button buttonFindLocation</Member>
+        <Member type="Field">private ListBox listBoxCheckinChoosen</Member>
+        <Member type="Field">private Utilities m_Util</Member>
+        <Member type="Field">private CheckinHolder m_CheckinHolder</Member>
+        <Member type="Field">private User m_LoggedInUser</Member>
+        <Member type="Field">private ErrorProvider m_ErrorProviderNumber</Member>
+        <Member type="Field">private ErrorProvider m_ErrorProviderText</Member>
+        <Member type="Property">private Double UserDistance { get; set; }</Member>
+        <Member type="Property">private Int32 MaxCount { get; set; }</Member>
+        <Member type="Property">private String SortBy { get; set; }</Member>
+        <Member type="Property">private String UserLocation { get; set; }</Member>
+        <Member type="Property">private DateTime Date { get; set; }</Member>
+        <Member type="Constructor">public FindCheckinByLocationForm(User i_LoggedInUser)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Member type="Method">private Boolean validateControls(Func&lt;String, Boolean&gt; i_IsValid, ErrorProvider i_ErrorProvider, params Control[] i_ControlsToValidate)</Member>
+        <Member type="Method">private Void initializeUserCheckinInput()</Member>
+        <Member type="Method">private Void updateControls()</Member>
+        <Member type="Method">private Void fetchCheckinByPlace(User i_LoggedInUser)</Member>
+        <Member type="Method">private Void fetchCheckinLikes()</Member>
+        <Member type="Method">private Void fetchCheckinComments()</Member>
+        <Member type="Method">private Void fetchAddressSuggestion()</Member>
+        <Member type="Method">private Void clearForm()</Member>
+        <Member type="Method">private Void buttonFindLocation_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void ButtonCheckin_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void listBoxAddressSuggestion_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void listBoxCheckinByPlace_SelectedIndexChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void linkLabelComments_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Member type="Method">private Void linkLabelLikes_LinkClicked(Object sender, LinkLabelLinkClickedEventArgs e)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ScreenLoginForm</Name>
+        <Access>Public</Access>
+        <Location left="861" top="42" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private User m_LoggedInUser</Member>
+        <Member type="Field">private FacebookBackend m_FacebookEnd</Member>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private Button buttonLogin</Member>
+        <Member type="Constructor">public ScreenLoginForm()</Member>
+        <Member type="Method">private Void buttonLogin_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CheckinHolder</Name>
+        <Access>Internal</Access>
+        <Location left="310" top="364" />
+        <Size width="162" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;GoogleMapsReference&gt; m_UserAddressSuggestions</Member>
+        <Member type="Field">private List&lt;Checkin&gt; m_RecentCheckins</Member>
+        <Member type="Field">private List&lt;Checkin&gt; m_CheckinByPlace</Member>
+        <Member type="Property">public List&lt;Checkin&gt; RecentCheckins { get; }</Member>
+        <Member type="Property">public List&lt;GoogleMapsReference&gt; UserAddressSuggestions { get; }</Member>
+        <Member type="Property">public List&lt;Checkin&gt; CheckinByPlace { get; }</Member>
+        <Member type="Constructor">public CheckinHolder()</Member>
+        <Member type="Method">internal Void setUserAddresses(String i_UserInput)</Member>
+        <Member type="Method">private String findUserReferenceLocation(String i_AddressSelected)</Member>
+        <Member type="Method">internal Void setRecentCheckins(User i_LoggedUser, DateTime i_Date, String i_SortBy, Int32 i_MaxCount)</Member>
+        <Member type="Method">internal Void setAllCheckinByPlace(String userLocation, Double userDistance, String addressSelected)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Utilities</Name>
+        <Access>Public</Access>
+        <Location left="310" top="42" />
+        <Size width="162" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal String sr_FillField</Member>
+        <Member type="Field">internal String sr_FillFieldNumber</Member>
+        <Member type="Field">internal String sr_Likes</Member>
+        <Member type="Field">internal String sr_Comments</Member>
+        <Member type="Field">internal String sr_Messages</Member>
+        <Member type="Constructor">public Utilities()</Member>
+        <Member type="Constructor">static Utilities()</Member>
+        <Member type="Method">internal Void clearListBox(params ListBox[] listBoxex)</Member>
+        <Member type="Method">internal Void disableControls(params Control[] controls)</Member>
+        <Member type="Method">internal Void enableControls(params Control[] controls)</Member>
+        <Member type="Method">internal Boolean isUserTextValid(String i_userText)</Member>
+        <Member type="Method">internal Boolean isValidNunber(String i_UserInput)</Member>
+        <Member type="Method">internal String noItem(String type)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="0" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>564</X>
+          <Y>191</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>499</X>
+          <Y>191</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_Util</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="3" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_Util</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="3" second="5">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>m_CheckinHolder</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
