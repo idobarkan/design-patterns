@@ -11,19 +11,19 @@ using System.IO;
 namespace FindTagsAround
 {
 
-    public class GoogleMapsLocationProvider : ILocationProvider
+    public class GoogleMapsFacade : ILocationProvider
     {
         private string m_GoogleMapsKey = "AIzaSyBYpkC0V-CGuJX1pDC8Rr8nuF4ISACDjiE";
 
-        public Coordinate GetLocationCoordinates(string i_LocationReference)
+        public Coordinate GetLocationCoordinates(string i_GoogleMapsReference)
         {
-            var responseStream = getLocationResponseStream(i_LocationReference);
+            var responseStream = getLocationResponseStream(i_GoogleMapsReference);
             return getLocationFromResponseXml(responseStream);
         }
 
-        public List<GoogleMapsReference> GetLocationSuggestions(string userInput)
+        public List<GoogleMapsReference> GetLocationSuggestions(string i_LocationSearchString)
         {
-            var responseStream = getSuggestionsResponseStream(userInput);
+            var responseStream = getSuggestionsResponseStream(i_LocationSearchString);
             var result = getSuggestionsFromResponseXml(responseStream);
             return result;
         }

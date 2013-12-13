@@ -33,7 +33,7 @@ namespace FaceBookFrontEnd
         
         internal void setUserAddresses(String i_UserInput)
         {
-            GoogleMapsLocationProvider locationPrvdr = new GoogleMapsLocationProvider();
+            GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
             m_UserAddressSuggestions = locationPrvdr.GetLocationSuggestions(i_UserInput);
         }
         
@@ -58,7 +58,7 @@ namespace FaceBookFrontEnd
         
         internal void setAllCheckinByPlace(String userLocation, double userDistance, String addressSelected)
         {
-            GoogleMapsLocationProvider locationPrvdr = new GoogleMapsLocationProvider();
+            GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
             GeographicalDistanceComputer distanceComputer = new GeographicalDistanceComputer();
             String reference = findUserReferenceLocation(addressSelected);
             Coordinate userCoordinates = locationPrvdr.GetLocationCoordinates(reference);
