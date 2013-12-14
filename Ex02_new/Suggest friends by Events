@@ -1,10 +1,16 @@
 # from https://www.websequencediagrams.com/#
 title Suggest friends by Events
 
-User->+":FacebookBackend": GetSuggestions(eRecommendationSource, m_LoggedInUser, i_maxResults, sort function)
-":FacebookBackend"->":EventsFriendsRecommender": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
+User->+":FacebookBackend": Instance()
+
+opt theInstace==null
+":FacebookBackend"->+"instace:FacebookBackend":new()
+end
+":FacebookBackend"->"instace:FacebookBackend":s_Instance
+User->"instace:FacebookBackend": GetSuggestions(eRecommendationSource, m_LoggedInUser, i_maxResults, sort function)
+"instace:FacebookBackend"->":EventsFriendsRecommender": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
 activate ":EventsFriendsRecommender"
-":EventsFriendsRecommender"->":EventsFriendsRecommender": get all user events from all user's Events
+":EventsFriendsRecommender"->":EventsFriendsRecommender": get all user friends from all user's Events
 activate ":EventsFriendsRecommender"
 deactivate ":EventsFriendsRecommender"
 note right of ":EventsFriendsRecommender": using Facebook API
@@ -15,6 +21,6 @@ deactivate ":EventsFriendsRecommender"
 activate ":EventsFriendsRecommender"
 deactivate ":EventsFriendsRecommender"
 
-":EventsFriendsRecommender"-->>-":FacebookBackend" : list<Users>
+":EventsFriendsRecommender"-->>-"instace:FacebookBackend" : list<Users>
 
-":FacebookBackend"-->>-User : list<Users>
+"instace:FacebookBackend"-->>-User : list<Users>
