@@ -46,10 +46,18 @@ namespace FaceBookBackEnd
 
         private void fetchPhotosIfNeeded(User i_LoggedInUser)
         {
-            if (DateTime.Now - m_lastTimePhotosFetched > TimeSpan.FromMinutes(2))
+            if (cachedPhotosAreStale)
             {
                 m_cachedUserPhotos = getAllPhotos(i_LoggedInUser);
                 m_lastTimePhotosFetched = DateTime.Now;
+            }
+        }
+
+        private bool cachedPhotosAreStale
+        {
+            get
+            {
+                return DateTime.Now - m_lastTimePhotosFetched > TimeSpan.FromMinutes(2);
             }
         }
 
