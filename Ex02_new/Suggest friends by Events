@@ -8,19 +8,24 @@ opt theInstace==null
 end
 ":FacebookBackend"->"instace:FacebookBackend":s_Instance
 User->"instace:FacebookBackend": GetSuggestions(eRecommendationSource, m_LoggedInUser, i_maxResults, sort function)
-"instace:FacebookBackend"->":EventsFriendsRecommender": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
-activate ":EventsFriendsRecommender"
+"instace:FacebookBackend"->+":FriendsRecommenderProxy": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
+opt :EventsFriendsRecommender==null
+":FriendsRecommenderProxy"->+":EventsFriendsRecommender": create()
+end
+":FriendsRecommenderProxy"->":EventsFriendsRecommender": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
+opt cachedEventsAreStale
 ":EventsFriendsRecommender"->":EventsFriendsRecommender": get all user friends from all user's Events
 activate ":EventsFriendsRecommender"
 deactivate ":EventsFriendsRecommender"
 note right of ":EventsFriendsRecommender": using Facebook API
+end
 ":EventsFriendsRecommender"->":EventsFriendsRecommender": sort by i_OrderByFunc
 activate ":EventsFriendsRecommender"
 deactivate ":EventsFriendsRecommender"
-":EventsFriendsRecommender"->":EventsFriendsRecommender": filter nonrelevant users
+":EventsFriendsRecommender"->":EventsFriendsRecommender": filter non relevant users
 activate ":EventsFriendsRecommender"
 deactivate ":EventsFriendsRecommender"
-
-":EventsFriendsRecommender"-->>-"instace:FacebookBackend" : list<Users>
+":EventsFriendsRecommender"-->>-":FriendsRecommenderProxy" : list<Users>
+":FriendsRecommenderProxy"-->>-"instace:FacebookBackend" : list<Users>
 
 "instace:FacebookBackend"-->>-User : list<Users>
