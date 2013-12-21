@@ -57,12 +57,12 @@ namespace FindTagsAround
 
         private List<GoogleMapsReference> getSuggestionsFromResponseXml(Stream xmlStream)
         {
-            var xdoc = XDocument.Load(xmlStream);
+            XDocument xdoc = XDocument.Load(xmlStream);
             var result = new List<GoogleMapsReference>();
             foreach (var prediction in xdoc.Descendants("prediction"))
             {
-                var reference = prediction.Descendants("reference").Select(x => x.Value).Single();
-                var description = prediction.Descendants("description").Select(x => x.Value).Single();
+                string reference = prediction.Descendants("reference").Select(x => x.Value).Single();
+                string description = prediction.Descendants("description").Select(x => x.Value).Single();
                 result.Add(new GoogleMapsReference(){Description=description, Reference=reference});
             }
             return result;
@@ -70,11 +70,11 @@ namespace FindTagsAround
 
         private Coordinate getLocationFromResponseXml(Stream xmlStream)
         {
-            var xdoc = XDocument.Load(xmlStream);
-            var result = new List<GoogleMapsReference>();
+            XDocument xdoc = XDocument.Load(xmlStream);
+            List<GoogleMapsReference> result = new List<GoogleMapsReference>();
             XElement location = xdoc.Descendants("location").Select(x => x).Single();
-            var lat = location.Descendants("lat").Select(x => x.Value).Single();
-            var lng = location.Descendants("lng").Select(x => x.Value).Single();
+            string lat = location.Descendants("lat").Select(x => x.Value).Single();
+            string lng = location.Descendants("lng").Select(x => x.Value).Single();
             double parsedLat;
             double parsedLong;
             if (!Double.TryParse(lat, out parsedLat) 
