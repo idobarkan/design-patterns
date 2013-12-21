@@ -7,14 +7,22 @@ opt theInstace==null
 ":FacebookBackend"->+"instace:FacebookBackend":new()
 end
 ":FacebookBackend"->"instace:FacebookBackend":s_Instance
-User->"instace:FacebookBackend": GetSuggestions(eRecommendationSource, m_LoggedInUser, i_maxResults, sort function)
-"instace:FacebookBackend"->+":FriendsRecommenderProxy": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
-opt :PhotosFriendsRecommender==null
+User->"instace:FacebookBackend": RegisterForRecommendations(eRecommendationSource, Action)
+note right of User: Action is a callback signaling a new user recommendation found
+"instace:FacebookBackend"->+":FriendsRecommenderProxy": RegisterForRecommendations(i_LoggedInUser, Action)
 ":FriendsRecommenderProxy"->+":PhotosFriendsRecommender": create()
+":FriendsRecommenderProxy"->":PhotosFriendsRecommender": delegate+=Action
+":PhotosFriendsRecommender"-->>":FriendsRecommenderProxy" : ConcurrentQueue<User>
+":FriendsRecommenderProxy"-->>"instace:FacebookBackend" : ConcurrentQueue<User>
+"instace:FacebookBackend"-->>User : ConcurrentQueue<User>
+User->"instace:FacebookBackend": GetSuggestionsAsync(eRecommendationSource, updateFunction)
+"instace:FacebookBackend"->":FriendsRecommenderProxy": GetSuggestionsAsync(i_LoggedInUser, i_OrderByFunc)
+opt :PhotosFriendsRecommender==null
+
 end
-":FriendsRecommenderProxy"->":PhotosFriendsRecommender": GetSuggestions(i_LoggedInUser, i_MaxResults, i_OrderByFunc)
+":FriendsRecommenderProxy"->":PhotosFriendsRecommender": GetSuggestionsAsync(i_LoggedInUser, i_OrderByFunc)
 opt cachedEventsAreStale
-":PhotosFriendsRecommender"->":PhotosFriendsRecommender": get all user friends from all user's Photos
+":PhotosFriendsRecommender"->":PhotosFriendsRecommender": get all user friends from all user's Events
 activate ":PhotosFriendsRecommender"
 deactivate ":PhotosFriendsRecommender"
 note right of ":PhotosFriendsRecommender": using Facebook API
@@ -25,7 +33,9 @@ deactivate ":PhotosFriendsRecommender"
 ":PhotosFriendsRecommender"->":PhotosFriendsRecommender": filter non relevant users
 activate ":PhotosFriendsRecommender"
 deactivate ":PhotosFriendsRecommender"
-":PhotosFriendsRecommender"-->>-":FriendsRecommenderProxy" : list<Users>
-":FriendsRecommenderProxy"-->>-"instace:FacebookBackend" : list<Users>
-
-"instace:FacebookBackend"-->>-User : list<Users>
+loop for each user found
+":PhotosFriendsRecommender"->":PhotosFriendsRecommender": enqueueUserAndNotify()
+":PhotosFriendsRecommender"->User:Action()
+note right of User: User recommendation found and put in Queue!
+User->User:listBoxSuggestedByEvent()
+end

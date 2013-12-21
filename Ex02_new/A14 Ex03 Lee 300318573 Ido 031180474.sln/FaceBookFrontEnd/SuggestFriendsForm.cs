@@ -98,16 +98,6 @@ namespace FaceBookFrontEnd
             }
         }
 
-        private void getFromQueueToListBox2()
-        {
-            User UserFromQ = null;
-            if (m_EventsSuggestionsUsersQ.TryDequeue(out UserFromQ))
-            {
-                listBoxSuggestedByEvent.Invoke(new Action(
-                    () => listBoxSuggestedByEvent.Items.Add(UserFromQ)));
-            }
-        }
-
         private void getFromQueueToEventeListBox()
         {
             User UserFromQ;
