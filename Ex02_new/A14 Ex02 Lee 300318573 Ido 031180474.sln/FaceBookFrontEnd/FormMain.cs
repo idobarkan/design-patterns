@@ -19,8 +19,6 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private User m_LoggedInUser;
         private FacebookBackend m_FacebookEnd;
         
-
-
         public FacebookForm(User i_LoggedIngUser, FacebookBackend i_FacebookEnd)
         {
             InitializeComponent();
@@ -184,6 +182,16 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             listBoxNewsFeed.Items.Clear();
             Cursor.Current = Cursors.WaitCursor;
             fetchNewsFeed();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            ApplicationSettings.Instance.LastWindowState = this.WindowState;
+            ApplicationSettings.Instance.LastWindowSize = this.Size;
+            ApplicationSettings.Instance.LastWindowLocation = this.Location;
+           // ApplicationSettings.Instance.AutoLogin = this.checkBoxAutoLogin.Checked;
+            ApplicationSettings.Instance.Save();
         }
     }
 }
