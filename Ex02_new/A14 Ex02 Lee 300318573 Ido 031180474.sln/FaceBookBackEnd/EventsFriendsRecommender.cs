@@ -38,10 +38,18 @@ namespace FaceBookBackEnd
 
         private void fetchEventsIfNeeded(User i_LoggedInUser)
         {
-            if (DateTime.Now - m_lastTimeEventsFetched > TimeSpan.FromMinutes(2))
+            if (cachedEventsAreStale)
             {
                 m_cachedUserEvents = new List<Event>(i_LoggedInUser.Events);
                 m_lastTimeEventsFetched = DateTime.Now;
+            }
+        }
+
+        private bool cachedEventsAreStale
+        {
+            get
+            {
+                return DateTime.Now - m_lastTimeEventsFetched > TimeSpan.FromMinutes(2);
             }
         }
 

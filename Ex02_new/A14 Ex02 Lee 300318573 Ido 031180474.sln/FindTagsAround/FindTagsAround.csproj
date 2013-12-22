@@ -51,7 +51,7 @@
     <Compile Include="Coordinate.cs" />
     <Compile Include="FacebookCheckInVicinityProvider.cs" />
     <Compile Include="GeographicalDistanceComputer.cs" />
-    <Compile Include="GoogleMapsLocationProvider.cs" />
+    <Compile Include="GoogleMapsLocationFacade.cs" />
     <Compile Include="GoogleMapsReference.cs" />
     <Compile Include="IDistanceComputer.cs" />
     <Compile Include="ILocationProvider.cs" />

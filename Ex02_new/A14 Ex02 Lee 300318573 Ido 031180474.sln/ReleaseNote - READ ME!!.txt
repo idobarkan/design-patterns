@@ -1,4 +1,13 @@
 ﻿/*
+ changes in 6.2.1.9:
+ * Perfomance improvements (fixed an issue that caused fetching each object twice :/ )
+ *      and some refactoring
+ *      Fetching 87 friends took: 17.1699973 seconds (before fix), Fetching 87 friends took: 1.40293 seconds (after fix)
+ *
+ * Added [Browsable(false)] on selective properties for DataBinding demo
+/*
+
+/*
  changes in 6.2.1.8:
  * Fixed PicturesColleciton::GetPictureUrl method to include access_token in the request.
  *    Now properties like album.Photos[0].ImageNormal should work..

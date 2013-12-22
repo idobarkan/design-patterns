@@ -1,9 +1,9 @@
 # from https://www.websequencediagrams.com/#
-title Find Checkins by location
+title Find Checkins By location
 
-User->+":GoogleMapsLocationProvider": getAllUserFriendsRecentTags(adress)
-note right of ":GoogleMapsLocationProvider": using Google MapsAPI
-":GoogleMapsLocationProvider"-->>-User: List<GoogleMapsReference>
+User->+":GoogleMapsFacade": getAllUserFriendsRecentTags(LocationSearchString)
+note right of ":GoogleMapsFacade": using Google MapsAPI
+":GoogleMapsFacade"-->>-User: List<GoogleMapsReference>
 
 User->User: set UserAddressSuggestions
 
@@ -18,18 +18,18 @@ note right of ":FacebookCheckInVicinityProvider": using Facebook API
 destroy ":FacebookCheckInVicinityProvider"
 
 loop all checkins
-    User->+":GoogleMapsLocationProvider": GetLocationCoordinates(checkin.address)
-note right of ":GoogleMapsLocationProvider": usign Google Maps API
-":GoogleMapsLocationProvider"-->>-User: Coordinate
+    User->+":GoogleMapsFacade": GetLocationCoordinates(checkin.address)
+note right of ":GoogleMapsFacade": using Google Maps API
+":GoogleMapsFacade"-->>-User: Coordinate
 end
 
 loop all coordinates
     User->+":GeographicalDistanceComputer": IsNear(friendCoordinate, userDistance, userCoordinates)
-":GoogleMapsLocationProvider"-->>-User: true/false
+":GoogleMapsFacade"-->>-User: true/false
 opt true
     User->User: Show
 end
 
 end
-destroy ":GoogleMapsLocationProvider"
+destroy ":GoogleMapsFacade"
 destroy ":GeographicalDistanceComputer"
