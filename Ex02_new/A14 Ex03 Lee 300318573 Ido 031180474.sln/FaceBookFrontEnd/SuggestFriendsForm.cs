@@ -69,7 +69,7 @@ namespace FaceBookFrontEnd
             {
                 suggestFriendsByPhotos = new List<User>();
                 suggestFriendsByPhotos = m_Fb.GetSuggestions<Photo, int>(eRecommendationSource.Photos, m_LoggedInUser,
-                    Int32.Parse(textBoxMaxResults.Text), (Photo photos) => photos.Tags != null ? photos.Tags.Count : 0);
+                    Int32.Parse(textBoxMaxResults.Text), (Photo photo) => photo.Tags != null ? photo.Tags.Count : 0);
                 
                 foreach (User user in suggestFriendsByPhotos)
                 {
@@ -86,7 +86,7 @@ namespace FaceBookFrontEnd
             {
                 suggestFriendsByEvents = new List<User>();
                 suggestFriendsByEvents = m_Fb.GetSuggestions<Event, int>(eRecommendationSource.Events, m_LoggedInUser,
-                    Int32.Parse(textBoxMaxResults.Text), (Event events) => events.AttendingUsers != null ? events.AttendingUsers.Count : 0);
+                    Int32.Parse(textBoxMaxResults.Text), (Event i_Event) => i_Event.AttendingUsers != null ? i_Event.AttendingUsers.Count : 0);
                 foreach (User user in suggestFriendsByEvents)
                 {
                     listBoxSuggestedByEvent.Items.Add(user);
