@@ -184,14 +184,14 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             fetchNewsFeed();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            base.OnClosing(e);
-            ApplicationSettings.Instance.LastWindowState = this.WindowState;
-            ApplicationSettings.Instance.LastWindowSize = this.Size;
-            ApplicationSettings.Instance.LastWindowLocation = this.Location;
-           // ApplicationSettings.Instance.AutoLogin = this.checkBoxAutoLogin.Checked;
-            ApplicationSettings.Instance.Save();
-        }
+        //protected override void OnClosing(CancelEventArgs e)
+        //{
+        //    base.OnClosing(e);
+        //    ApplicationSettings.Instance.LastWindowState = this.WindowState;
+        //    ApplicationSettings.Instance.LastWindowSize = this.Size;
+        //    ApplicationSettings.Instance.LastWindowLocation = this.Location;
+        //   // ApplicationSettings.Instance.AutoLogin = this.checkBoxAutoLogin.Checked;
+        //    ApplicationSettings.Instance.Save();
+        //}
     }
 }

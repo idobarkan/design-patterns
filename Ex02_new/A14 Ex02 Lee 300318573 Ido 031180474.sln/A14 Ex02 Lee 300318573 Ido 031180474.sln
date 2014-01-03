@@ -4,12 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindTagsAround", "FindTagsAround\FindTagsAround.csproj", "{5B652221-8470-4E76-8357-DAAB7114B282}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E93FF79-6A34-47B1-B7D5-45453FEEEEA2}"
-	ProjectSection(SolutionItems) = preProject
-		A14 Ex03 Lee 300318573 Ido 0311804741.vsmdi = A14 Ex03 Lee 300318573 Ido 0311804741.vsmdi
-		details.txt = details.txt
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceBookBackEnd", "FaceBookBackEnd\FaceBookBackEnd.csproj", "{7E7B1D45-8940-4638-936D-425D5F02FDEA}"
 EndProject
@@ -20,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceBookFrontEnd", "FaceBoo
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = A14 Ex03 Lee 300318573 Ido 0311804741.vsmdi
+		CategoryFile = A14 Ex02 Lee 300318573 Ido 031180474.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
