@@ -68,7 +68,7 @@ namespace _17_Command
 
         public MenuItemWithDelegate(string i_Text, Action i_Comamnd)
         {
-            m_Text = i_Text;
+            //m_Text = i_Text;
             m_CommandDelegate = i_Comamnd;
         }
     }
