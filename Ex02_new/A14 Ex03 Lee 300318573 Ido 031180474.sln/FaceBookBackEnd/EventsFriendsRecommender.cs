@@ -1,13 +1,14 @@
-﻿namespace FaceBookBackEnd
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using FacebookWrapper.ObjectModel;
-    using FacebookWrapper;
-    using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacebookWrapper.ObjectModel;
+using FacebookWrapper;
+using System.Linq.Expressions;
+using System.Collections.Concurrent;
 
+namespace FaceBookBackEnd
+{
     internal class EventsFriendsRecommender : IFriendsRecommender
     {
         private DateTime m_lastTimeEventsFetched { get; set; }
