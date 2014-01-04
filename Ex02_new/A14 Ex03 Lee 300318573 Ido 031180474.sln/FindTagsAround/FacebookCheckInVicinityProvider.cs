@@ -1,12 +1,11 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacebookWrapper.ObjectModel;
+
 namespace FindTagsAround
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using FacebookWrapper.ObjectModel;
-
     public class FacebookCheckInVicinityProvider : ICheckInVicinityProvider
     {
         public List<Checkin> getAllUserFriendsRecentTags(
