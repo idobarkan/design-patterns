@@ -7,7 +7,6 @@ namespace FaceBookBackEnd
 {
     public enum eRecommendationSource
 	{
-	    Checkins,
         Photos,
         Events,
 	}

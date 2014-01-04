@@ -20,19 +20,7 @@ namespace FaceBookBackEnd
 
         public List<FacebookWrapper.ObjectModel.User> GetSuggestions<T, TKey>(eRecommendationSource i_Source, FacebookWrapper.ObjectModel.User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
         {
-            if (i_Source == eRecommendationSource.Checkins)
-            {
-                if (m_CheckInsFriendsRecommender == null)
-                {
-                    m_CheckInsFriendsRecommender = new CheckInsFriendsRecommender();
-                }
-                return m_CheckInsFriendsRecommender.GetSuggestions<T, TKey>(
-                    i_LoggedInUser,
-                    i_MaxResults,
-                    i_OrderByFunc
-                        );
-            }
-            else if (i_Source == eRecommendationSource.Photos)
+            if (i_Source == eRecommendationSource.Photos)
             {
                 if (m_PhotosFriendsRecommender == null)
                 {
