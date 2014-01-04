@@ -17,15 +17,22 @@ namespace FindTagsAround
 
         public Coordinate GetLocationCoordinates(string i_GoogleMapsReference)
         {
-            var responseStream = getLocationResponseStream(i_GoogleMapsReference);
+            Stream responseStream = getLocationResponseStream(i_GoogleMapsReference);
             return getLocationFromResponseXml(responseStream);
         }
 
         public List<GoogleMapsReference> GetLocationSuggestions(string i_LocationSearchString)
         {
-            var responseStream = getSuggestionsResponseStream(i_LocationSearchString);
-            var result = getSuggestionsFromResponseXml(responseStream);
+            Stream responseStream = getSuggestionsResponseStream(i_LocationSearchString);
+            List<GoogleMapsReference> result = getSuggestionsFromResponseXml(responseStream);
             return result;
+        }
+
+        public Coordinate GetFeelingLuckyCoordinate(string i_LocationSearchString)
+        {
+            Stream responseStream = getSuggestionsResponseStream(i_LocationSearchString);
+            List<GoogleMapsReference> result = getSuggestionsFromResponseXml(responseStream);
+            return GetLocationCoordinates(result.First().Reference);
         }
 
         private Stream getLocationResponseStream(string i_LocationReference)

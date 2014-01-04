@@ -12,10 +12,10 @@ namespace FindTagsAround
         public List<Checkin> getAllUserFriendsRecentTags(
             User i_LoggedInUser, DateTime i_Oldest, eRecommendationSortKey i_Sortby, int i_Max_count)
         {
-            var aggregatedCheckins = new List<Checkin>();
-            foreach (var friend in i_LoggedInUser.Friends)
+            List<Checkin> aggregatedCheckins = new List<Checkin>();
+            foreach (User friend in i_LoggedInUser.Friends)
             {
-                foreach (var checkIn in friend.Checkins)
+                foreach (Checkin checkIn in friend.Checkins)
                 {
                     if (checkIn.CreatedTime > i_Oldest)
                     {
@@ -32,7 +32,7 @@ namespace FindTagsAround
             }
             else if (i_Sortby == eRecommendationSortKey.CommentsCount)
             {
-                return aggregatedCheckins.Select(x => x)
+                return aggregatedCheckins
                     .OrderBy(x => x.Comments.Count)
                     .Take(i_Max_count)
                     .ToList();
@@ -41,7 +41,6 @@ namespace FindTagsAround
             {
                 return aggregatedCheckins.ToList();
             }
-            
         }
     }
 }

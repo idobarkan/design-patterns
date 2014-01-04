@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PhotosFriendsRecommender.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace FaceBookBackEnd
+﻿namespace FaceBookBackEnd
 {
     using System;
     using System.Collections.Generic;
@@ -30,8 +24,7 @@ namespace FaceBookBackEnd
             fetchEventsIfNeeded(i_LoggedInUser);
 
             var sortedPhotosByUpdateTime = m_cachedUserEvents.Select(x => x)
-                                            .OrderBy<Event, TKey>(i_OrderByFunc as Func<Event, TKey>)
-                                            .Reverse();
+                                            .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
 
             return getFriendSuggestionsFromEvents(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
         }

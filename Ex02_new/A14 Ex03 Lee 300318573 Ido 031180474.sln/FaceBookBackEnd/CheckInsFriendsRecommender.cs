@@ -65,7 +65,7 @@ namespace FaceBookBackEnd
                     // this is sometimes thrown from facebook Dll for an unknown reason
                 }
             }
-            return suggestedUsers.Select(x => x).Take(i_MaxResults).ToList();
+            return suggestedUsers.Take(i_MaxResults).ToList();
         }
     }
 }
