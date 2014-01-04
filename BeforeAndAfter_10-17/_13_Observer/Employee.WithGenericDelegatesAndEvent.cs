@@ -11,7 +11,7 @@ namespace _13_Observer.WithGenericDelegatesAndEvent
         private float m_Fever = 36.7f;
         bool m_Sick = false;
 
-        /// holding a reference to the pre-defined Action<T> delegate, definining it to be an Action<string>
+        /// holding a reference to the pre-defined Action<T> delegate, defining it to be an Action<string>
         /// which makes it a delegate void Action(string s)
         public event Action<string> m_ReportSickDelegates;
 
