@@ -13,11 +13,14 @@ namespace FaceBookBackEnd
     {
         private DateTime m_lastTimeEventsFetched { get; set; }
         private List<Event> m_cachedUserEvents;
+        public ConcurrentQueue<User> SuggestionsQ { get; private set;}
+        public event Action UserRecommendedDelegetas;
 
         public EventsFriendsRecommender()
         {
             m_lastTimeEventsFetched = DateTime.MinValue;
             m_cachedUserEvents = new List<Event>();
+            SuggestionsQ = new ConcurrentQueue<User>();
         }
 
         public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
@@ -28,6 +31,40 @@ namespace FaceBookBackEnd
                                             .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
 
             return getFriendSuggestionsFromEvents(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
+        }
+
+        public void GetSuggestionsAsync<T, TKey>(User i_LoggedInUser, Func<T, TKey> i_OrderByFunc)
+        {
+            fetchEventsIfNeeded(i_LoggedInUser);
+
+            var sortedPhotosByUpdateTime = m_cachedUserEvents
+                                            .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
+
+            getFriendSuggestionsFromEventsAsync(i_LoggedInUser, sortedPhotosByUpdateTime);
+        }
+
+        private void getFriendSuggestionsFromEventsAsync(
+            User i_LoggedInUser, IEnumerable<Event> events)
+        {
+            var alreadySuggestedUsersIds = new HashSet<string>(i_LoggedInUser.Friends.Select(f => f.Id));
+            alreadySuggestedUsersIds.Add(i_LoggedInUser.Id);
+            foreach (var event_ in events)
+            {
+                foreach (var user in event_.AttendingUsers)
+                {
+                    if (!alreadySuggestedUsersIds.Contains(user.Id))
+                    {
+                        enqueueUserAndNotify(user);
+                        alreadySuggestedUsersIds.Add(user.Id);
+                    }
+                }
+            }
+        }
+
+        private void enqueueUserAndNotify(User user)
+        {
+            SuggestionsQ.Enqueue(user);
+            UserRecommendedDelegetas.Invoke();
         }
 
         private void fetchEventsIfNeeded(User i_LoggedInUser)
