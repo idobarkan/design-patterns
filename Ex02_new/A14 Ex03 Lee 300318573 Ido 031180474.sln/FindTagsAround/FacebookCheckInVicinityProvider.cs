@@ -24,8 +24,7 @@ namespace FindTagsAround
             }
             if (i_Sortby == eRecommendationSortKey.CreatedTime)
             {
-                return aggregatedCheckins.Select(x => x)
-                    .OrderBy(x => x.CreatedTime)
+                return aggregatedCheckins.OrderBy(x => x.CreatedTime)
                     .Take(i_Max_count)
                     .ToList();
             }

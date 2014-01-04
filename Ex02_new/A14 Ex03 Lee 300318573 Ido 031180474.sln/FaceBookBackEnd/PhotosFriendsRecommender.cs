@@ -23,8 +23,8 @@ namespace FaceBookBackEnd
         {
             fetchPhotosIfNeeded(i_LoggedInUser);
 
-            IEnumerable<Photo> sortedPhotosByUpdateTime = m_cachedUserPhotos.Select(x => x)
-                                            .OrderByDescending<Photo, TKey>(i_OrderByFunc as Func<Photo, TKey>);
+            IEnumerable<Photo> sortedPhotosByUpdateTime = m_cachedUserPhotos
+                .OrderByDescending<Photo, TKey>(i_OrderByFunc as Func<Photo, TKey>);
 
             return getFriendSuggestionsFromPhotos(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
         }
@@ -80,7 +80,7 @@ namespace FaceBookBackEnd
                     } 
                 }
             }
-            return suggestedUsers.Select(x => x).Take(i_MaxResults).ToList();
+            return suggestedUsers.Take(i_MaxResults).ToList();
         }
     }
 }

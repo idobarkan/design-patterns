@@ -23,7 +23,7 @@
         {
             fetchEventsIfNeeded(i_LoggedInUser);
 
-            var sortedPhotosByUpdateTime = m_cachedUserEvents.Select(x => x)
+            var sortedPhotosByUpdateTime = m_cachedUserEvents
                                             .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
 
             return getFriendSuggestionsFromEvents(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
@@ -63,7 +63,7 @@
                     } 
                 }
             }
-            return suggestedUsers.Select(x => x).Take(i_MaxResults).ToList();
+            return suggestedUsers.Take(i_MaxResults).ToList();
         }
     }
 }
