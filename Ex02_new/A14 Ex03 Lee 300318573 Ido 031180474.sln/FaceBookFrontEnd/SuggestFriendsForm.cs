@@ -10,6 +10,8 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using FaceBookBackEnd;
 using FindTagsAround;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace FaceBookFrontEnd
 {
@@ -19,6 +21,8 @@ namespace FaceBookFrontEnd
         private FacebookBackend m_Fb;
         private Utilities m_Util;
         private ErrorProvider m_ErrorProvider;
+        ConcurrentQueue<User> m_EventsSuggestionsUsersQ;
+        ConcurrentQueue<User> m_PhotosSuggestionsUsersQ;
 
         public SuggestFriendsForm(User i_LoginUser, FacebookBackend i_Fb)
         {
@@ -63,34 +67,67 @@ namespace FaceBookFrontEnd
         private void suggestFriendsByPhotos()
         {
             bool isValid = validateControls(m_Util.isValidNunber, textBoxMaxResults);
-            List<User> suggestFriendsByPhotos = null;
             
             if (isValid)
             {
-                suggestFriendsByPhotos = new List<User>();
-                suggestFriendsByPhotos = m_Fb.GetSuggestions<Photo, int>(eRecommendationSource.Photos, m_LoggedInUser,
-                    Int32.Parse(textBoxMaxResults.Text), (Photo photo) => photo.Tags != null ? photo.Tags.Count : 0);
-                
-                foreach (User user in suggestFriendsByPhotos)
+                m_PhotosSuggestionsUsersQ = m_Fb.RegisterForRecommendations(eRecommendationSource.Photos, getFromQueueToPhotosListBox);
+                Task t1 = Task.Factory.StartNew(() =>
                 {
-                    listBoxSuggestedByPhotos.Items.Add(user);
-                }
+                    m_Fb.GetSuggestionsAsync<Photo, int>(
+                    eRecommendationSource.Photos,
+                    m_LoggedInUser,
+                    (Photo photo) => photo.Tags != null ? photo.Tags.Count : 0);
+                });
             }
         }
 
         private void suggestFriendsByEvents()
         {
             bool isValid = validateControls(m_Util.isValidNunber, textBoxMaxResults);
-            List<User> suggestFriendsByEvents = null;
             if (isValid)
             {
-                suggestFriendsByEvents = new List<User>();
-                suggestFriendsByEvents = m_Fb.GetSuggestions<Event, int>(eRecommendationSource.Events, m_LoggedInUser,
-                    Int32.Parse(textBoxMaxResults.Text), (Event i_Event) => i_Event.AttendingUsers != null ? i_Event.AttendingUsers.Count : 0);
-                foreach (User user in suggestFriendsByEvents)
+                m_EventsSuggestionsUsersQ = m_Fb.RegisterForRecommendations(eRecommendationSource.Events, getFromQueueToEventeListBox);
+                Task t1 = Task.Factory.StartNew(() =>
                 {
-                    listBoxSuggestedByEvent.Items.Add(user);
-                }
+                    m_Fb.GetSuggestionsAsync<Event, int>(
+                    eRecommendationSource.Events,
+                    m_LoggedInUser,
+                    (Event i_Event) => i_Event.AttendingUsers != null ? i_Event.AttendingUsers.Count : 0);
+                });
+            }
+        }
+
+        private void getFromQueueToListBox2()
+        {
+            User UserFromQ = null;
+            if (m_EventsSuggestionsUsersQ.TryDequeue(out UserFromQ))
+            {
+                listBoxSuggestedByEvent.Invoke(new Action(
+                    () => listBoxSuggestedByEvent.Items.Add(UserFromQ)));
+            }
+        }
+
+        private void getFromQueueToEventeListBox()
+        {
+            User UserFromQ;
+            if (m_EventsSuggestionsUsersQ.TryDequeue(out UserFromQ))
+            {
+                listBoxSuggestedByEvent.SafeInvoke(
+                    new Action(
+                    () => listBoxSuggestedByEvent.Items.Add(UserFromQ)),
+                    false);
+            }
+        }
+
+        private void getFromQueueToPhotosListBox()
+        {
+            User UserFromQ;
+            if (m_PhotosSuggestionsUsersQ.TryDequeue(out UserFromQ))
+            {
+                listBoxSuggestedByPhotos.SafeInvoke(
+                    new Action(
+                    () => listBoxSuggestedByPhotos.Items.Add(UserFromQ)),
+                    false);
             }
         }
 
@@ -101,8 +138,6 @@ namespace FaceBookFrontEnd
             Cursor.Current = Cursors.WaitCursor;
             suggestFriendsByEvents();   
         }
-
-      
 
         private void listBoxSuggestedByPhotos_SelectedIndexChanged(object sender, EventArgs e)
         {

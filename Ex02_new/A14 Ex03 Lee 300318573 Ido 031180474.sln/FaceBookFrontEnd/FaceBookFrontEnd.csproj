@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SafeInvoke.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="CheckinHolder.cs" />
     <Compile Include="FindCheckinByLocation.cs">

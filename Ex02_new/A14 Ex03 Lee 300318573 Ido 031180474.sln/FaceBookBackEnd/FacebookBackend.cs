@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.IO;
+using System.Collections.Concurrent;
 
 namespace FaceBookBackEnd
 {
@@ -45,6 +45,16 @@ namespace FaceBookBackEnd
         public List<User> GetSuggestions<T, TKey>(eRecommendationSource i_Source, User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
         {
             return m_CheckInsFriendsRecommenderProxy.GetSuggestions<T, TKey>(i_Source, i_LoggedInUser, i_MaxResults, i_OrderByFunc);
+        }
+
+        public void GetSuggestionsAsync<T, TKey>(eRecommendationSource i_Source, User i_LoggedInUser, Func<T, TKey> i_OrderByFunc)
+        {
+            m_CheckInsFriendsRecommenderProxy.GetSuggestionsAsync<T, TKey>(i_Source, i_LoggedInUser, i_OrderByFunc);
+        }
+
+        public ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action d)
+        {
+            return m_CheckInsFriendsRecommenderProxy.RegisterForRecommendations(i_Source, d);
         }
     }
 }

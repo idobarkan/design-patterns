@@ -5,6 +5,7 @@ using System.Text;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Linq.Expressions;
+using System.Collections.Concurrent;
 
 namespace FaceBookBackEnd
 {
@@ -12,11 +13,28 @@ namespace FaceBookBackEnd
     {
         private DateTime m_lastTimePhotosFetched { get; set; }
         private List<Photo> m_cachedUserPhotos;
+        public ConcurrentQueue<User> SuggestionsQ { get; private set; }
+
+        private Action userRecommendedDelegetas;
+
+        public event Action UserRecommendedDelegetas
+        {
+            add
+            {
+                userRecommendedDelegetas = null;
+                userRecommendedDelegetas += value;
+            }
+            remove
+            {
+                userRecommendedDelegetas -= value;
+            }
+        }
 
         public PhotosFriendsRecommender()
         {
             m_lastTimePhotosFetched = DateTime.MinValue;
             m_cachedUserPhotos = new List<Photo>();
+            SuggestionsQ = new ConcurrentQueue<User>();
         }
 
         public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
@@ -27,6 +45,16 @@ namespace FaceBookBackEnd
                 .OrderByDescending<Photo, TKey>(i_OrderByFunc as Func<Photo, TKey>);
 
             return getFriendSuggestionsFromPhotos(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
+        }
+
+        public void GetSuggestionsAsync<T, TKey>(User i_LoggedInUser, Func<T, TKey> i_OrderByFunc)
+        {
+            fetchPhotosIfNeeded(i_LoggedInUser);
+
+            IEnumerable<Photo> sortedPhotosByUpdateTime = m_cachedUserPhotos
+                .OrderByDescending<Photo, TKey>(i_OrderByFunc as Func<Photo, TKey>);
+
+            getFriendSuggestionsFromPhotosAsync(i_LoggedInUser, sortedPhotosByUpdateTime);
         }
 
         private List<Photo> getAllPhotos(User i_LoggedInUser)
@@ -81,6 +109,36 @@ namespace FaceBookBackEnd
                 }
             }
             return suggestedUsers.Take(i_MaxResults).ToList();
+        }
+
+        private void getFriendSuggestionsFromPhotosAsync(
+            User i_LoggedInUser, IEnumerable<Photo> photos)
+        {
+            var alreadySuggestedUsersIds = new HashSet<string>(i_LoggedInUser.Friends.Select(f => f.Id));
+            alreadySuggestedUsersIds.Add(i_LoggedInUser.Id);
+            foreach (var photo in photos)
+            {
+                if (photo.Tags != null)
+                {
+                    foreach (var tag in photo.Tags)
+                    {
+                        if (!alreadySuggestedUsersIds.Contains(tag.User.Id))
+                        {
+                            enqueueUserAndNotify(tag.User);
+                            alreadySuggestedUsersIds.Add(tag.User.Id);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void enqueueUserAndNotify(User user)
+        {
+            SuggestionsQ.Enqueue(user);
+            if (userRecommendedDelegetas != null)
+            {
+                userRecommendedDelegetas.Invoke();
+            }
         }
     }
 }

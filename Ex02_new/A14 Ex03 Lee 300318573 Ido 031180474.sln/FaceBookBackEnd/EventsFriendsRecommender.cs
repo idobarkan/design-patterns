@@ -6,6 +6,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Linq.Expressions;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace FaceBookBackEnd
 {
@@ -14,7 +15,21 @@ namespace FaceBookBackEnd
         private DateTime m_lastTimeEventsFetched { get; set; }
         private List<Event> m_cachedUserEvents;
         public ConcurrentQueue<User> SuggestionsQ { get; private set;}
-        public event Action UserRecommendedDelegetas;
+
+        private Action userRecommendedDelegetas;
+
+        public event Action UserRecommendedDelegetas
+        {
+            add
+            {
+                userRecommendedDelegetas = null;
+                userRecommendedDelegetas += value;
+            }
+            remove
+            {
+                userRecommendedDelegetas -= value;
+            }
+        }
 
         public EventsFriendsRecommender()
         {
@@ -37,10 +52,10 @@ namespace FaceBookBackEnd
         {
             fetchEventsIfNeeded(i_LoggedInUser);
 
-            var sortedPhotosByUpdateTime = m_cachedUserEvents
+            IOrderedEnumerable<Event> sortedEventsByUpdateTime = m_cachedUserEvents
                                             .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
 
-            getFriendSuggestionsFromEventsAsync(i_LoggedInUser, sortedPhotosByUpdateTime);
+            getFriendSuggestionsFromEventsAsync(i_LoggedInUser, sortedEventsByUpdateTime);
         }
 
         private void getFriendSuggestionsFromEventsAsync(
@@ -64,7 +79,10 @@ namespace FaceBookBackEnd
         private void enqueueUserAndNotify(User user)
         {
             SuggestionsQ.Enqueue(user);
-            UserRecommendedDelegetas.Invoke();
+            if (userRecommendedDelegetas != null)
+            {
+                userRecommendedDelegetas.Invoke();
+            }
         }
 
         private void fetchEventsIfNeeded(User i_LoggedInUser)
