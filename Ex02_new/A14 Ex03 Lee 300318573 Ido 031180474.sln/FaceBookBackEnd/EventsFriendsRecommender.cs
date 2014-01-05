@@ -38,16 +38,6 @@ namespace FaceBookBackEnd
             SuggestionsQ = new ConcurrentQueue<User>();
         }
 
-        public List<User> GetSuggestions<T, TKey>(User i_LoggedInUser, int i_MaxResults, Func<T, TKey> i_OrderByFunc)
-        {
-            fetchEventsIfNeeded(i_LoggedInUser);
-
-            var sortedPhotosByUpdateTime = m_cachedUserEvents
-                                            .OrderByDescending<Event, TKey>(i_OrderByFunc as Func<Event, TKey>);
-
-            return getFriendSuggestionsFromEvents(i_LoggedInUser, sortedPhotosByUpdateTime, i_MaxResults);
-        }
-
         public void GetSuggestionsAsync<T, TKey>(User i_LoggedInUser, Func<T, TKey> i_OrderByFunc)
         {
             fetchEventsIfNeeded(i_LoggedInUser);
