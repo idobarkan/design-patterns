@@ -10,7 +10,6 @@ using System.IO;
 
 namespace FindTagsAround
 {
-
     public class GoogleMapsFacade : ILocationProvider
     {
         private string m_GoogleMapsKey = "AIzaSyBYpkC0V-CGuJX1pDC8Rr8nuF4ISACDjiE";
