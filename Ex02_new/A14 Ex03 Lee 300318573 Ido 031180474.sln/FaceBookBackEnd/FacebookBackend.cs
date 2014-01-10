@@ -47,9 +47,9 @@ namespace FaceBookBackEnd
             m_CheckInsFriendsRecommenderProxy.GetSuggestionsAsync<T, TKey>(i_Source, i_LoggedInUser, i_OrderByFunc);
         }
 
-        public ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action d)
+        public ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action i_Callback)
         {
-            return m_CheckInsFriendsRecommenderProxy.RegisterForRecommendations(i_Source, d);
+            return m_CheckInsFriendsRecommenderProxy.RegisterForRecommendations(i_Source, i_Callback);
         }
     }
 }

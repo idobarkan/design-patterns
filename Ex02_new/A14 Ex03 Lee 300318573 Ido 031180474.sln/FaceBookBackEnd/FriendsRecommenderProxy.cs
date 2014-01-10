@@ -41,19 +41,19 @@ namespace FaceBookBackEnd
             }
         }
 
-        public ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action d)
+        public ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action i_Callback)
         {
             ConcurrentQueue<User> q;
             if (i_Source == eRecommendationSource.Photos)
             {
                 createPhotosFriendsRecommenderIfNeeded();
-                m_PhotosFriendsRecommender.UserRecommendedDelegetas += d;
+                m_PhotosFriendsRecommender.UserRecommendedDelegetas += i_Callback;
                 q = m_PhotosFriendsRecommender.SuggestionsQ;
             }
             else if (i_Source == eRecommendationSource.Events)
             {
                 createEventsFriendsRecommenderIfNeeded();
-                m_EventsFriendsRecommender.UserRecommendedDelegetas += d;
+                m_EventsFriendsRecommender.UserRecommendedDelegetas += i_Callback;
                 q = m_EventsFriendsRecommender.SuggestionsQ;
             }
             else
