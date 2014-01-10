@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label imageNormalLabel;
+            System.Windows.Forms.Label messageLabel;
+            System.Windows.Forms.Label nameLabel;
             this.insertLocationLbl = new System.Windows.Forms.Label();
             this.textBoxLocation = new System.Windows.Forms.TextBox();
             this.chooseDateLbl = new System.Windows.Forms.Label();
@@ -36,19 +40,29 @@
             this.textBoxDistance = new System.Windows.Forms.TextBox();
             this.listBoxAddressSuggestion = new System.Windows.Forms.ListBox();
             this.listBoxCheckinByPlace = new System.Windows.Forms.ListBox();
+            this.checkinBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelSortBy = new System.Windows.Forms.Label();
             this.labelMaxCount = new System.Windows.Forms.Label();
             this.comboBoxSortBy = new System.Windows.Forms.ComboBox();
             this.comboBoxMaxCount = new System.Windows.Forms.ComboBox();
             this.linkLabelComments = new System.Windows.Forms.LinkLabel();
             this.linkLabelLikes = new System.Windows.Forms.LinkLabel();
-            this.pictureBoxCheckinUser = new System.Windows.Forms.PictureBox();
             this.ButtonCheckin = new System.Windows.Forms.Button();
             this.listBoxViewCheckinLikes = new System.Windows.Forms.ListBox();
             this.listBoxViewCheckinComments = new System.Windows.Forms.ListBox();
             this.buttonFindLocation = new System.Windows.Forms.Button();
-            this.listBoxCheckinChoosen = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckinUser)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageTextBox = new System.Windows.Forms.TextBox();
+            this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            imageNormalLabel = new System.Windows.Forms.Label();
+            messageLabel = new System.Windows.Forms.Label();
+            nameLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.checkinBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // insertLocationLbl
@@ -122,12 +136,18 @@
             // listBoxCheckinByPlace
             // 
             this.listBoxCheckinByPlace.BackColor = System.Drawing.Color.Orange;
+            this.listBoxCheckinByPlace.DataSource = this.checkinBindingSource;
+            this.listBoxCheckinByPlace.DisplayMember = "Place";
             this.listBoxCheckinByPlace.FormattingEnabled = true;
             this.listBoxCheckinByPlace.Location = new System.Drawing.Point(15, 240);
             this.listBoxCheckinByPlace.Name = "listBoxCheckinByPlace";
-            this.listBoxCheckinByPlace.Size = new System.Drawing.Size(412, 147);
+            this.listBoxCheckinByPlace.Size = new System.Drawing.Size(567, 147);
             this.listBoxCheckinByPlace.TabIndex = 64;
             this.listBoxCheckinByPlace.SelectedIndexChanged += new System.EventHandler(this.listBoxCheckinByPlace_SelectedIndexChanged);
+            // 
+            // checkinBindingSource
+            // 
+            this.checkinBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Checkin);
             // 
             // labelSortBy
             // 
@@ -211,14 +231,6 @@
             this.linkLabelLikes.Text = "View Checkin Likes";
             this.linkLabelLikes.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLikes_LinkClicked);
             // 
-            // pictureBoxCheckinUser
-            // 
-            this.pictureBoxCheckinUser.Location = new System.Drawing.Point(445, 240);
-            this.pictureBoxCheckinUser.Name = "pictureBoxCheckinUser";
-            this.pictureBoxCheckinUser.Size = new System.Drawing.Size(137, 172);
-            this.pictureBoxCheckinUser.TabIndex = 76;
-            this.pictureBoxCheckinUser.TabStop = false;
-            // 
             // ButtonCheckin
             // 
             this.ButtonCheckin.BackColor = System.Drawing.SystemColors.Control;
@@ -236,6 +248,7 @@
             // listBoxViewCheckinLikes
             // 
             this.listBoxViewCheckinLikes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.listBoxViewCheckinLikes.DisplayMember = "Comments";
             this.listBoxViewCheckinLikes.FormattingEnabled = true;
             this.listBoxViewCheckinLikes.HorizontalScrollbar = true;
             this.listBoxViewCheckinLikes.Location = new System.Drawing.Point(355, 434);
@@ -243,6 +256,7 @@
             this.listBoxViewCheckinLikes.ScrollAlwaysVisible = true;
             this.listBoxViewCheckinLikes.Size = new System.Drawing.Size(287, 121);
             this.listBoxViewCheckinLikes.TabIndex = 78;
+            this.listBoxViewCheckinLikes.ValueMember = "Comments";
             this.listBoxViewCheckinLikes.Visible = false;
             // 
             // listBoxViewCheckinComments
@@ -269,28 +283,88 @@
             this.buttonFindLocation.UseVisualStyleBackColor = false;
             this.buttonFindLocation.Click += new System.EventHandler(this.buttonFindLocation_Click);
             // 
-            // listBoxCheckinChoosen
+            // panel1
             // 
-            this.listBoxCheckinChoosen.BackColor = System.Drawing.Color.Orange;
-            this.listBoxCheckinChoosen.FormattingEnabled = true;
-            this.listBoxCheckinChoosen.HorizontalScrollbar = true;
-            this.listBoxCheckinChoosen.Location = new System.Drawing.Point(598, 240);
-            this.listBoxCheckinChoosen.Name = "listBoxCheckinChoosen";
-            this.listBoxCheckinChoosen.ScrollAlwaysVisible = true;
-            this.listBoxCheckinChoosen.Size = new System.Drawing.Size(232, 69);
-            this.listBoxCheckinChoosen.TabIndex = 81;
+            this.panel1.Controls.Add(this.imageNormalPictureBox);
+            this.panel1.Controls.Add(nameLabel);
+            this.panel1.Controls.Add(this.nameTextBox);
+            this.panel1.Controls.Add(messageLabel);
+            this.panel1.Controls.Add(this.messageTextBox);
+            this.panel1.Controls.Add(imageNormalLabel);
+            this.panel1.Location = new System.Drawing.Point(588, 240);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(403, 179);
+            this.panel1.TabIndex = 82;
+            // 
+            // commentsBindingSource
+            // 
+            this.commentsBindingSource.DataMember = "Comments";
+            this.commentsBindingSource.DataSource = this.checkinBindingSource;
+            // 
+            // imageNormalLabel
+            // 
+            imageNormalLabel.AutoSize = true;
+            imageNormalLabel.Location = new System.Drawing.Point(-73, 68);
+            imageNormalLabel.Name = "imageNormalLabel";
+            imageNormalLabel.Size = new System.Drawing.Size(75, 13);
+            imageNormalLabel.TabIndex = 2;
+            imageNormalLabel.Text = "Image Normal:";
+            // 
+            // messageLabel
+            // 
+            messageLabel.AutoSize = true;
+            messageLabel.Location = new System.Drawing.Point(143, 41);
+            messageLabel.Name = "messageLabel";
+            messageLabel.Size = new System.Drawing.Size(53, 13);
+            messageLabel.TabIndex = 2;
+            messageLabel.Text = "Message:";
+            // 
+            // messageTextBox
+            // 
+            this.messageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.checkinBindingSource, "Message", true));
+            this.messageTextBox.Location = new System.Drawing.Point(224, 38);
+            this.messageTextBox.Multiline = true;
+            this.messageTextBox.Name = "messageTextBox";
+            this.messageTextBox.Size = new System.Drawing.Size(145, 80);
+            this.messageTextBox.TabIndex = 3;
+            // 
+            // imageNormalPictureBox
+            // 
+            this.imageNormalPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.checkinBindingSource, "From.ImageNormal", true));
+            this.imageNormalPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.imageNormalPictureBox.Name = "imageNormalPictureBox";
+            this.imageNormalPictureBox.Size = new System.Drawing.Size(137, 179);
+            this.imageNormalPictureBox.TabIndex = 4;
+            this.imageNormalPictureBox.TabStop = false;
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new System.Drawing.Point(143, 10);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(38, 13);
+            nameLabel.TabIndex = 5;
+            nameLabel.Text = "Name:";
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.checkinBindingSource, "From.Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(224, 7);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(145, 20);
+            this.nameTextBox.TabIndex = 6;
             // 
             // FindCheckinByLocationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 498);
-            this.Controls.Add(this.listBoxCheckinChoosen);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1094, 750);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonFindLocation);
             this.Controls.Add(this.listBoxViewCheckinComments);
             this.Controls.Add(this.listBoxViewCheckinLikes);
             this.Controls.Add(this.ButtonCheckin);
-            this.Controls.Add(this.pictureBoxCheckinUser);
             this.Controls.Add(this.linkLabelLikes);
             this.Controls.Add(this.linkLabelComments);
             this.Controls.Add(this.comboBoxMaxCount);
@@ -307,7 +381,11 @@
             this.Controls.Add(this.insertLocationLbl);
             this.Name = "FindCheckinByLocationForm";
             this.Text = "FindCheckinByLocation";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCheckinUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkinBindingSource)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,11 +407,15 @@
         private System.Windows.Forms.ComboBox comboBoxMaxCount;
         private System.Windows.Forms.LinkLabel linkLabelComments;
         private System.Windows.Forms.LinkLabel linkLabelLikes;
-        private System.Windows.Forms.PictureBox pictureBoxCheckinUser;
         private System.Windows.Forms.Button ButtonCheckin;
         private System.Windows.Forms.ListBox listBoxViewCheckinLikes;
         private System.Windows.Forms.ListBox listBoxViewCheckinComments;
         private System.Windows.Forms.Button buttonFindLocation;
-        private System.Windows.Forms.ListBox listBoxCheckinChoosen;
+        private System.Windows.Forms.BindingSource checkinBindingSource;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.BindingSource commentsBindingSource;
+        private System.Windows.Forms.PictureBox imageNormalPictureBox;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.TextBox messageTextBox;
     }
 }

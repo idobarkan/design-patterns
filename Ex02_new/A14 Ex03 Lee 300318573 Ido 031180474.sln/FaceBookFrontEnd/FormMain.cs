@@ -18,7 +18,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
     {
         private User m_LoggedInUser;
         private FacebookBackend m_FacebookEnd;
-        
+
         public FacebookForm(User i_LoggedIngUser, FacebookBackend i_FacebookEnd)
         {
             InitializeComponent();
@@ -56,11 +56,11 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private void fetchNewsFeed()
         {
             StringBuilder postInfo = null;
-            
+
             foreach (Post post in m_LoggedInUser.NewsFeed)
             {
                 postInfo = new StringBuilder();
-                
+
                 if (post.Message != null)
                 {
                     postInfo.Append(post.From).Append(": ").Append(post.Message);
@@ -82,74 +82,36 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
                 }
             }
         }
-       
+
         private void linkFriends_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxFriends.Items.Clear();
             Cursor.Current = Cursors.WaitCursor;
             fetchFriends();
         }
 
         private void fetchFriends()
         {
-            listBoxFriends.DisplayMember = "Name";
-            foreach (User friend in m_LoggedInUser.Friends)
+            /// this operation is the operation that takes time, and should be executed in the separate thread 
+            var allFriends = m_LoggedInUser.Friends;
+            if (!listBoxFriends.InvokeRequired)
             {
-                listBoxFriends.Items.Add(friend);
-            }
-        }
-
-        private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            displaySelectedFriend();
-            displayStatus();
-        }
-
-        private void displayStatus()
-        {
-            listBoxStatus.Items.Clear();
-            if (listBoxFriends.SelectedItems.Count == 1)
-            {
-                User selectedFriend = listBoxFriends.SelectedItem as User;
-                
-                if (selectedFriend.Statuses[0] != null)
-                {
-                    listBoxStatus.Items.Add(selectedFriend.Statuses[0]);
-                }
-            }
-        }
-
-        private void displaySelectedFriend()
-        {
-            if (listBoxFriends.SelectedItems.Count == 1)
-            {
-                User selectedFriend = listBoxFriends.SelectedItem as User;
-                
-                if (selectedFriend.PictureNormalURL != null)
-                {
-                    pictureBoxFriend.LoadAsync(selectedFriend.PictureNormalURL);
-                }
-                else
-                {
-                    picture_smallPictureBox.Image = picture_smallPictureBox.ErrorImage;
-                }
+                // binding the data source of the binding source, to our data source: userBindingSource.DataSource = allFriends; } else { // In case of cross-thread operation, invoking the binding code on the listBox's thread: 
+                listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
             }
         }
 
         private void labelEvents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxEvents.Items.Clear();
             Cursor.Current = Cursors.WaitCursor;
             fetchEvents();
         }
 
         private void fetchEvents()
         {
-            listBoxEvents.DisplayMember = "Name";
-            
-            foreach (Event fbEvent in m_LoggedInUser.Events)
+            var allEvents = m_LoggedInUser.Events;
+            if (!listBoxEvents.InvokeRequired)
             {
-                listBoxEvents.Items.Add(fbEvent);
+                listBoxEvents.Invoke(new Action(() => eventBindingSource.DataSource = allEvents));
             }
         }
 
@@ -158,7 +120,6 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             if (listBoxEvents.SelectedItems.Count == 1)
             {
                 Event selectedEvent = listBoxEvents.SelectedItem as Event;
-                pictureBoxEvent.LoadAsync(selectedEvent.PictureNormalURL);
             }
         }
 
@@ -183,15 +144,5 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             Cursor.Current = Cursors.WaitCursor;
             fetchNewsFeed();
         }
-
-        //protected override void OnClosing(CancelEventArgs e)
-        //{
-        //    base.OnClosing(e);
-        //    ApplicationSettings.Instance.LastWindowState = this.WindowState;
-        //    ApplicationSettings.Instance.LastWindowSize = this.Size;
-        //    ApplicationSettings.Instance.LastWindowLocation = this.Location;
-        //   // ApplicationSettings.Instance.AutoLogin = this.checkBoxAutoLogin.Checked;
-        //    ApplicationSettings.Instance.Save();
-        //}
     }
 }

@@ -62,8 +62,8 @@ namespace FaceBookFrontEnd
         private void initializeUserCheckinInput()
         {
             UserDistance = Convert.ToDouble(textBoxDistance.Text);
-            SortBy = (FindTagsAround.eRecommendationSortKey) Enum.Parse(
-                typeof(FindTagsAround.eRecommendationSortKey), 
+            SortBy = (FindTagsAround.eRecommendationSortKey)Enum.Parse(
+                typeof(FindTagsAround.eRecommendationSortKey),
                 comboBoxSortBy.SelectedItem.ToString());
             MaxCount = Int32.Parse(comboBoxMaxCount.SelectedItem.ToString());
             Date = dateTimePickerUser.Value.Date;
@@ -79,18 +79,20 @@ namespace FaceBookFrontEnd
 
         private void fetchCheckinByPlace(User i_LoggedInUser)
         {
-            listBoxCheckinByPlace.Items.Clear();
             m_CheckinHolder.setRecentCheckins(i_LoggedInUser, Date, SortBy, MaxCount);
             m_CheckinHolder.setAllCheckinByPlace(UserLocation, UserDistance, listBoxAddressSuggestion.SelectedItem.ToString());
 
-            foreach (Checkin checkin in m_CheckinHolder.CheckinByPlace)
+            var allCheckinByPlace = m_CheckinHolder.CheckinByPlace;
+            if (allCheckinByPlace != null)
             {
-                listBoxCheckinByPlace.Items.Add(checkin);
+                if (!listBoxCheckinByPlace.InvokeRequired)
+                {
+                    listBoxCheckinByPlace.Invoke(new Action(() => checkinBindingSource.DataSource = allCheckinByPlace));
+                }
             }
-
-            if (listBoxCheckinByPlace.Items.Count == 0)
+            else
             {
-                MessageBox.Show(string.Format("No friend was found in {0} at {1} around {2} meters", listBoxAddressSuggestion.SelectedItem, Date.Date, UserDistance));
+                MessageBox.Show(Utilities.sr_Messages);
             }
         }
 
@@ -116,6 +118,7 @@ namespace FaceBookFrontEnd
 
         private void fetchCheckinComments()
         {
+
             if (listBoxCheckinByPlace.SelectedItems.Count == 1)
             {
                 Checkin selectedCheckin = listBoxCheckinByPlace.SelectedItem as Checkin;
@@ -146,10 +149,7 @@ namespace FaceBookFrontEnd
         private void clearForm()
         {
             updateControls();
-            m_Util.clearListBox(listBoxCheckinByPlace, listBoxAddressSuggestion, listBoxCheckinChoosen);
-
-            pictureBoxCheckinUser.Image = null;
-
+            m_Util.clearListBox(listBoxAddressSuggestion);
             m_Util.disableControls(ButtonCheckin, linkLabelLikes, linkLabelComments);
         }
 
@@ -173,7 +173,7 @@ namespace FaceBookFrontEnd
             bool isControlsNumbersValid = validateControls(m_Util.isValidNunber, m_ErrorProviderNumber, textBoxDistance);
 
             bool isControlsTextValid = validateControls(m_Util.isUserTextValid, m_ErrorProviderText, dateTimePickerUser, comboBoxSortBy, comboBoxMaxCount);
-            
+
             if (isControlsTextValid & isControlsNumbersValid)
             {
                 initializeUserCheckinInput();
@@ -186,9 +186,6 @@ namespace FaceBookFrontEnd
 
         private void listBoxAddressSuggestion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_Util.clearListBox(listBoxCheckinByPlace, listBoxCheckinChoosen);
-            pictureBoxCheckinUser.Image = null;
-
             if (listBoxAddressSuggestion.SelectedItems.Count == 1)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -198,30 +195,8 @@ namespace FaceBookFrontEnd
 
         private void listBoxCheckinByPlace_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_Util.clearListBox(listBoxCheckinChoosen);
-            
-            if (listBoxCheckinByPlace.SelectedItems.Count == 1)
-            {
-                updateControls();
-
-                Checkin selectedCheckin = listBoxCheckinByPlace.SelectedItem as Checkin;
-                
-                if (selectedCheckin.Message != null)
-                {
-                    listBoxCheckinChoosen.Items.Add("Checkin messege: " + selectedCheckin.Message);
-                }
-                else
-                {
-                    listBoxCheckinChoosen.Items.Add(m_Util.noItem(Utilities.sr_Messages));
-                }
-
-                if (selectedCheckin.From.PictureNormalURL != null)
-                {
-                    pictureBoxCheckinUser.LoadAsync(selectedCheckin.From.PictureNormalURL);
-                }
-
-                m_Util.enableControls(linkLabelComments, linkLabelLikes);
-            }
+            updateControls();
+            m_Util.enableControls(linkLabelComments, linkLabelLikes);
         }
 
         private void linkLabelComments_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
