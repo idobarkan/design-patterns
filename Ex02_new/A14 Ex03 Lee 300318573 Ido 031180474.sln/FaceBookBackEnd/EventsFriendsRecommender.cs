@@ -55,7 +55,8 @@ namespace FaceBookBackEnd
             alreadySuggestedUsersIds.Add(i_LoggedInUser.Id);
             foreach (var event_ in events)
             {
-                foreach (var user in event_.AttendingUsers)
+                foreach (var user in 
+                    event_.AttendingUsers.Concat(event_.InvitedUsers))
                 {
                     if (!alreadySuggestedUsersIds.Contains(user.Id))
                     {
