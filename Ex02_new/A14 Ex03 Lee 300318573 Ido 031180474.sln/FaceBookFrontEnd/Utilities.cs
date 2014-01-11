@@ -9,17 +9,15 @@ using FindTagsAround;
 using FaceBookFrontEnd;
 using System.Windows.Forms;
 
-
-
 namespace FaceBookFrontEnd
 {
     public class Utilities
     {
-        internal static readonly String sr_FillField = "Please fill this field";
-        internal static readonly String sr_FillFieldNumber = "Please fill this field, numbers ONLY";
-        internal static readonly String sr_Likes = "Likes";
-        internal static readonly String sr_Comments = "Comments";
-        internal static readonly String sr_Messages = "Messages";
+        internal static readonly string Sr_FillField = "Please fill this field";
+        internal static readonly string Sr_FillFieldNumber = "Please fill this field, numbers ONLY";
+        internal static readonly string Sr_Likes = "Likes";
+        internal static readonly string Sr_Comments = "Comments";
+        internal static readonly string Sr_Messages = "Messages";
         
         internal void clearListBox(params ListBox[] listBoxex)
         {
@@ -45,11 +43,11 @@ namespace FaceBookFrontEnd
             }
         }
 
-        internal bool isUserTextValid(String i_userText)
+        internal bool isUserTextValid(string i_userText)
         {
             bool isValid = true;
             
-            if (i_userText == String.Empty)
+            if (i_userText == string.Empty)
             {
                 isValid = false;
             }
@@ -57,12 +55,12 @@ namespace FaceBookFrontEnd
             return isValid;
         }
         
-        internal bool isValidNunber(String i_UserInput)
+        internal bool isValidNunber(string i_UserInput)
         {
             bool isValid = true;
             int inputNumber;
             
-            if (i_UserInput == String.Empty || !Int32.TryParse(i_UserInput, out inputNumber))
+            if (i_UserInput == string.Empty || !Int32.TryParse(i_UserInput, out inputNumber))
             {
                 isValid = false;
             }
@@ -70,7 +68,7 @@ namespace FaceBookFrontEnd
             return isValid;
         }
         
-        internal String noItem(String type)
+        internal string noItem(string type)
         {
             StringBuilder message = new StringBuilder();
             

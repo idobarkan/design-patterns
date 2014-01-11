@@ -31,15 +31,15 @@ namespace FaceBookFrontEnd
             get { return m_CheckinByPlace; }
         }
 
-        internal void setUserAddresses(String i_UserInput)
+        internal void setUserAddresses(string i_UserInput)
         {
             GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
             m_UserAddressSuggestions = locationPrvdr.GetLocationSuggestions(i_UserInput);
         }
 
-        private string findUserReferenceLocation(String i_AddressSelected)
+        private string findUserReferenceLocation(string i_AddressSelected)
         {
-            String reference = String.Empty;
+            string reference = string.Empty;
             foreach (var location in m_UserAddressSuggestions)
             {
                 if (location.Description == i_AddressSelected)
@@ -47,6 +47,7 @@ namespace FaceBookFrontEnd
                     reference = location.Reference;
                 }
             }
+
             return reference;
         }
 
@@ -56,11 +57,11 @@ namespace FaceBookFrontEnd
             m_RecentCheckins = fbVicinityProv.getAllUserFriendsRecentTags(i_LoggedUser, i_Date, i_SortBy, i_MaxCount);
         }
 
-        internal void setAllCheckinByPlace(String userLocation, double userDistance, String addressSelected)
+        internal void setAllCheckinByPlace(string userLocation, double userDistance, string addressSelected)
         {
             GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
             GeographicalDistanceComputer distanceComputer = new GeographicalDistanceComputer();
-            String reference = findUserReferenceLocation(addressSelected);
+            string reference = findUserReferenceLocation(addressSelected);
             Coordinate userCoordinates = locationPrvdr.GetLocationCoordinates(reference);
             Coordinate friendCoordinate = null;
             m_CheckinByPlace = new List<Checkin>();

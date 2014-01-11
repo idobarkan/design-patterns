@@ -1,5 +1,4 @@
-﻿
-namespace FindTagsAround
+﻿namespace FindTagsAround
 {
     using System;
     using System.Collections.Generic;
@@ -7,12 +6,10 @@ namespace FindTagsAround
     using System.Text;
     using FacebookWrapper.ObjectModel;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface ILocationProvider
     {
         Coordinate GetLocationCoordinates(string i_googleMapsReference);
+        
         List<GoogleMapsReference> GetLocationSuggestions(string userInput);
     }
 }

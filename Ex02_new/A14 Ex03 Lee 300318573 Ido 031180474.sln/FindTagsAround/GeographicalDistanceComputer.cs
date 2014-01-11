@@ -1,5 +1,4 @@
-﻿
-namespace FindTagsAround
+﻿namespace FindTagsAround
 {
     using System;
     using System.Collections.Generic;

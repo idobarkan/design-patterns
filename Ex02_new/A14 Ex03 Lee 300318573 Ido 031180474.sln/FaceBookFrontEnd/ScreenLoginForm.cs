@@ -37,6 +37,7 @@ namespace FaceBookFrontEnd
                 FacebookForm facebook = new FacebookForm(m_LoggedInUser, m_FacebookEnd);
                 facebook.ShowDialog();
             }
+
             this.Close();
         }
     }

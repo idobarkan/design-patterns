@@ -10,7 +10,6 @@ using System.IO;
 
 namespace FindTagsAround
 {
-
     public class GoogleMapsFacade : ILocationProvider
     {
         private string m_GoogleMapsKey = "AIzaSyBYpkC0V-CGuJX1pDC8Rr8nuF4ISACDjiE";
@@ -70,8 +69,9 @@ namespace FindTagsAround
             {
                 string reference = prediction.Descendants("reference").Select(x => x.Value).Single();
                 string description = prediction.Descendants("description").Select(x => x.Value).Single();
-                result.Add(new GoogleMapsReference(){Description=description, Reference=reference});
+                result.Add(new GoogleMapsReference() { Description = description, Reference = reference });
             }
+
             return result;
         }
 
@@ -84,11 +84,13 @@ namespace FindTagsAround
             string lng = location.Descendants("lng").Select(x => x.Value).Single();
             double parsedLat;
             double parsedLong;
-            if (!Double.TryParse(lat, out parsedLat) 
+
+            if (!Double.TryParse(lat, out parsedLat)
                 || !Double.TryParse(lng, out parsedLong))
             {
                 throw new Exception("error in parsing geometry");
             }
+
             return new Coordinate(parsedLat, parsedLong);
         }
     }

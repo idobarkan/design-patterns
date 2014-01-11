@@ -21,8 +21,8 @@ namespace FaceBookFrontEnd
         private FacebookBackend m_Fb;
         private Utilities m_Util;
         private ErrorProvider m_ErrorProvider;
-        ConcurrentQueue<User> m_EventsSuggestionsUsersQ;
-        ConcurrentQueue<User> m_PhotosSuggestionsUsersQ;
+        private ConcurrentQueue<User> m_EventsSuggestionsUsersQ;
+        private ConcurrentQueue<User> m_PhotosSuggestionsUsersQ;
 
         public SuggestFriendsForm(User i_LoginUser, FacebookBackend i_Fb)
         {
@@ -33,7 +33,7 @@ namespace FaceBookFrontEnd
             this.m_ErrorProvider = new ErrorProvider();
         }
 
-        private bool validateControls(Func<String, bool> isValid, params Control[] ControlsToValidate)
+        private bool validateControls(Func<string, bool> isValid, params Control[] ControlsToValidate)
         {
             bool isControlsValid = true;
             
@@ -43,11 +43,11 @@ namespace FaceBookFrontEnd
                 
                 if (!isControlsValid)
                 {
-                    m_ErrorProvider.SetError(control, Utilities.sr_FillFieldNumber);
+                    m_ErrorProvider.SetError(control, Utilities.Sr_FillFieldNumber);
                 }
                 else
                 {
-                    m_ErrorProvider.SetError(control, String.Empty);
+                    m_ErrorProvider.SetError(control, string.Empty);
                     m_ErrorProvider.Clear();
                 }
             }

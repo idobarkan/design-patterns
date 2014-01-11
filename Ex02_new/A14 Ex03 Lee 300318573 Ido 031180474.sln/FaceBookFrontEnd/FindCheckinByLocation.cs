@@ -6,13 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using FaceBookBackEnd;
 using FindTagsAround;
 using FaceBookFrontEnd;
 using BasicFacebookFeatures.WithSingltonAppSettings;
-using System.Threading;
+
 
 namespace FaceBookFrontEnd
 {
@@ -26,7 +27,7 @@ namespace FaceBookFrontEnd
         private double UserDistance { get; set; }
         private int MaxCount { get; set; }
         private FindTagsAround.eRecommendationSortKey SortBy { get; set; }
-        private String UserLocation { get; set; }
+        private string UserLocation { get; set; }
         private DateTime Date { get; set; }
 
         public FindCheckinByLocationForm(User i_LoggedInUser)
@@ -39,7 +40,7 @@ namespace FaceBookFrontEnd
             this.m_CheckinHolder = new CheckinHolder();
         }
 
-        private bool validateControls(Func<String, bool> i_IsValid, ErrorProvider i_ErrorProvider, params Control[] i_ControlsToValidate)
+        private bool validateControls(Func<string, bool> i_IsValid, ErrorProvider i_ErrorProvider, params Control[] i_ControlsToValidate)
         {
             bool isControlsValid = true;
             foreach (var control in i_ControlsToValidate)
@@ -48,11 +49,11 @@ namespace FaceBookFrontEnd
 
                 if (!isControlsValid)
                 {
-                    i_ErrorProvider.SetError(control, Utilities.sr_FillField);
+                    i_ErrorProvider.SetError(control, Utilities.Sr_FillField);
                 }
                 else
                 {
-                    i_ErrorProvider.SetError(control, String.Empty);
+                    i_ErrorProvider.SetError(control, string.Empty);
                     i_ErrorProvider.Clear();
                 }
             }
@@ -104,7 +105,7 @@ namespace FaceBookFrontEnd
             }
             else
             {
-                MessageBox.Show(Utilities.sr_Messages);
+                MessageBox.Show(Utilities.Sr_Messages);
             }
         }
 
@@ -121,7 +122,7 @@ namespace FaceBookFrontEnd
 
                 if (listBoxViewCheckinLikes.Items.Count == 0)
                 {
-                    listBoxViewCheckinLikes.Items.Add(m_Util.noItem(Utilities.sr_Likes));
+                    listBoxViewCheckinLikes.Items.Add(m_Util.noItem(Utilities.Sr_Likes));
                 }
 
                 listBoxViewCheckinLikes.Visible = true;
@@ -140,7 +141,7 @@ namespace FaceBookFrontEnd
 
                 if (listBoxViewCheckinComments.Items.Count == 0)
                 {
-                    listBoxViewCheckinComments.Items.Add(m_Util.noItem(Utilities.sr_Comments));
+                    listBoxViewCheckinComments.Items.Add(m_Util.noItem(Utilities.Sr_Comments));
                 }
 
                 listBoxViewCheckinComments.Visible = true;
@@ -169,13 +170,16 @@ namespace FaceBookFrontEnd
             clearForm();
 
             bool isLocationValid = validateControls(m_Util.isUserTextValid, m_ErrorProviderText, textBoxLocation);
-            
+
             if (isLocationValid)
             {
                 UserLocation = textBoxLocation.Text;
                 fetchAddressSuggestion();
             }
-            else return;
+            else
+            { 
+                return; 
+            }
         }
 
         private void ButtonCheckin_Click(object sender, EventArgs e)
@@ -187,7 +191,7 @@ namespace FaceBookFrontEnd
             {
                 initializeUserCheckinInput();
             }
-            else return;
+            else { return; }
 
             new Thread(fetchCheckinByPlace).Start();
         }

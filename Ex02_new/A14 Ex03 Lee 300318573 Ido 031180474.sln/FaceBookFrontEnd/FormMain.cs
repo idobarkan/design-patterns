@@ -93,7 +93,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private void fetchFriends()
         {
             var allFriends = m_LoggedInUser.Friends;
-            
+
             if (!listBoxFriends.InvokeRequired)
             {
                 listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
@@ -123,7 +123,6 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             }
         }
 
-       
         private void fetchCheckins()
         {
             var allCheckins = m_LoggedInUser.Checkins;
@@ -133,7 +132,6 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
                 {
                     listBoxCheckins.Items.Add(checkin);
                 }
-
             }));
         }
 

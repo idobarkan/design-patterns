@@ -22,6 +22,7 @@ namespace FindTagsAround
                     }
                 }
             }
+
             if (i_Sortby == eRecommendationSortKey.CreatedTime)
             {
                 return aggregatedCheckins.OrderBy(x => x.CreatedTime)

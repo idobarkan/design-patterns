@@ -12,10 +12,6 @@ namespace FindTagsAround
     using System.Text;
     using FacebookWrapper.ObjectModel;
 
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public interface ICheckInVicinityProvider
     {
         List<Checkin> getAllUserFriendsRecentTags(
