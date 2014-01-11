@@ -12,6 +12,7 @@ using FaceBookBackEnd;
 using FindTagsAround;
 using FaceBookFrontEnd;
 using BasicFacebookFeatures.WithSingltonAppSettings;
+using System.Threading;
 
 namespace FaceBookFrontEnd
 {
@@ -77,16 +78,26 @@ namespace FaceBookFrontEnd
             listBoxViewCheckinComments.Visible = false;
         }
 
-        private void fetchCheckinByPlace(User i_LoggedInUser)
+        private void fetchCheckinByPlace()
         {
-            m_CheckinHolder.setRecentCheckins(i_LoggedInUser, Date, SortBy, MaxCount);
-            m_CheckinHolder.setAllCheckinByPlace(UserLocation, UserDistance, listBoxAddressSuggestion.SelectedItem.ToString());
+            m_CheckinHolder.setRecentCheckins(this.m_LoggedInUser, Date, SortBy, MaxCount);
 
-            var allCheckinByPlace = m_CheckinHolder.CheckinByPlace;
+            if (listBoxAddressSuggestion.InvokeRequired)
+            {
+                listBoxAddressSuggestion.Invoke(new MethodInvoker(() =>
+                    m_CheckinHolder.setAllCheckinByPlace(UserLocation, UserDistance, listBoxAddressSuggestion.SelectedItem.ToString())));
+            }
+
             this.listBoxCheckinByPlace.DisplayMember = "Checkin";
+            var allCheckinByPlace = m_CheckinHolder.CheckinByPlace;
+
             if (allCheckinByPlace != null)
             {
                 if (!listBoxCheckinByPlace.InvokeRequired)
+                {
+                    listBoxCheckinByPlace.Invoke(new Action(() => checkinBindingSource.DataSource = allCheckinByPlace));
+                }
+                else
                 {
                     listBoxCheckinByPlace.Invoke(new Action(() => checkinBindingSource.DataSource = allCheckinByPlace));
                 }
@@ -119,7 +130,6 @@ namespace FaceBookFrontEnd
 
         private void fetchCheckinComments()
         {
-
             if (listBoxCheckinByPlace.SelectedItems.Count == 1)
             {
                 Checkin selectedCheckin = listBoxCheckinByPlace.SelectedItem as Checkin;
@@ -159,7 +169,7 @@ namespace FaceBookFrontEnd
             clearForm();
 
             bool isLocationValid = validateControls(m_Util.isUserTextValid, m_ErrorProviderText, textBoxLocation);
-
+            
             if (isLocationValid)
             {
                 UserLocation = textBoxLocation.Text;
@@ -170,9 +180,7 @@ namespace FaceBookFrontEnd
 
         private void ButtonCheckin_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
             bool isControlsNumbersValid = validateControls(m_Util.isValidNunber, m_ErrorProviderNumber, textBoxDistance);
-
             bool isControlsTextValid = validateControls(m_Util.isUserTextValid, m_ErrorProviderText, dateTimePickerUser, comboBoxSortBy, comboBoxMaxCount);
 
             if (isControlsTextValid & isControlsNumbersValid)
@@ -181,8 +189,7 @@ namespace FaceBookFrontEnd
             }
             else return;
 
-            fetchCheckinByPlace(this.m_LoggedInUser);
-            m_Util.enableControls(listBoxCheckinByPlace);
+            new Thread(fetchCheckinByPlace).Start();
         }
 
         private void listBoxAddressSuggestion_SelectedIndexChanged(object sender, EventArgs e)

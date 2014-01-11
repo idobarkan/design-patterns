@@ -95,11 +95,9 @@
                   </ControlSettings>
                </PropertyUISetting>
                <PropertyUISetting Name="User.Events.Pictures">
-                  <ControlSettings>
-                     <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+                  <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
                         <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
-                     </ControlSetting>
-                  </ControlSettings>
+                     </ControlSetting></ControlSettings>
                </PropertyUISetting>
             </PropertyUISettings>
          </TypeUISetting>
@@ -293,6 +291,21 @@
          <TypeUISetting>
             <PropertyUISettings>
                <PropertyUISetting Name="User.Events.Venue">
+                  <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+                        <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
+                     </ControlSetting></ControlSettings>
+               </PropertyUISetting>
+            </PropertyUISettings>
+         </TypeUISetting>
+      </GenericObjectDataSource>
+      <GenericObjectDataSource DisplayName="Comments" Version="1.0">
+         <TypeInfo>FacebookWrapper.ObjectModel.Comment, FbGraphApiWrapper, Version=6.2.1.9, Culture=neutral, PublicKeyToken=null</TypeInfo>
+      </GenericObjectDataSource>
+      <GenericObjectDataSource DisplayName="Place" Version="1.0">
+         <TypeInfo>FacebookWrapper.ObjectModel.Place, FbGraphApiWrapper, Version=6.2.1.9, Culture=neutral, PublicKeyToken=null</TypeInfo>
+         <TypeUISetting>
+            <PropertyUISettings>
+               <PropertyUISetting Name="User.Statuses.Place">
                   <ControlSettings>
                      <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
                         <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
@@ -316,7 +329,7 @@
          <PropertyUISetting Name="Birthday">
             <ControlSettings>
                <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                  <BindableControlInfo Name="TextBox" Type="System.Windows.Forms.TextBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+                  <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
                </ControlSetting>
             </ControlSettings>
          </PropertyUISetting>
@@ -351,7 +364,7 @@
          <PropertyUISetting Name="ImageNormal">
             <ControlSettings>
                <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
-                  <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
+                  <BindableControlInfo Name="PictureBox" Type="System.Windows.Forms.PictureBox" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
                </ControlSetting>
             </ControlSettings>
          </PropertyUISetting>
@@ -496,25 +509,19 @@
             </ControlSettings>
          </PropertyUISetting>
          <PropertyUISetting Name="User.Events.Owner">
-            <ControlSettings>
-               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+            <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
                   <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
-               </ControlSetting>
-            </ControlSettings>
+               </ControlSetting></ControlSettings>
          </PropertyUISetting>
          <PropertyUISetting Name="User.Checkins.Comments.From">
-            <ControlSettings>
-               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+            <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
                   <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
-               </ControlSetting>
-            </ControlSettings>
+               </ControlSetting></ControlSettings>
          </PropertyUISetting>
          <PropertyUISetting Name="User.Checkins.From">
-            <ControlSettings>
-               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+            <ControlSettings><ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
                   <BindableControlInfo Name="[None]" Type="Microsoft.VSDesigner.Data.BindManager.NoneControlPlaceHolder" />
-               </ControlSetting>
-            </ControlSettings>
+               </ControlSetting></ControlSettings>
          </PropertyUISetting>
       </PropertyUISettings>
    </TypeUISetting>

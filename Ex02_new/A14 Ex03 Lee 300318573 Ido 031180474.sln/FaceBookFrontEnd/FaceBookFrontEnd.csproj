@@ -58,10 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckInAdapter.cs" />
+    <Compile Include="CheckinHolder.cs" />
     <Compile Include="SafeInvoke.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="CheckinHolder.cs" />
     <Compile Include="FindCheckinByLocation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,7 +108,6 @@
     <EmbeddedResource Include="SuggestFriendsForm.resx">
       <DependentUpon>SuggestFriendsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\CheckInAdapter.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Checkin.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.Event.datasource" />
     <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.User.datasource" />

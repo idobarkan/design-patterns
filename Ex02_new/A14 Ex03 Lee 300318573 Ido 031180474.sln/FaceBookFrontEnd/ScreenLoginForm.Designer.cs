@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.buttonLogin = new System.Windows.Forms.Button();
-            this.checkBoxAutoLogin = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -44,34 +43,20 @@
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
-            // checkBoxAutoLogin
-            // 
-            this.checkBoxAutoLogin.AutoSize = true;
-            this.checkBoxAutoLogin.ForeColor = System.Drawing.Color.Blue;
-            this.checkBoxAutoLogin.Location = new System.Drawing.Point(247, 37);
-            this.checkBoxAutoLogin.Name = "checkBoxAutoLogin";
-            this.checkBoxAutoLogin.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxAutoLogin.TabIndex = 38;
-            this.checkBoxAutoLogin.Text = "AutoLogin";
-            this.checkBoxAutoLogin.UseVisualStyleBackColor = true;
-            // 
             // ScreenLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 95);
-            this.Controls.Add(this.checkBoxAutoLogin);
             this.Controls.Add(this.buttonLogin);
             this.Name = "ScreenLoginForm";
             this.Text = "ScreenLoginForm";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button buttonLogin;
-        private System.Windows.Forms.CheckBox checkBoxAutoLogin;
     }
 }

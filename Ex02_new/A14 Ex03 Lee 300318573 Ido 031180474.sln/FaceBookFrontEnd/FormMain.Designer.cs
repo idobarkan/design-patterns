@@ -189,7 +189,6 @@
             this.listBoxEvents.Name = "listBoxEvents";
             this.listBoxEvents.Size = new System.Drawing.Size(236, 199);
             this.listBoxEvents.TabIndex = 40;
-            this.listBoxEvents.SelectedIndexChanged += new System.EventHandler(this.listBoxEvents_SelectedIndexChanged);
             // 
             // label3
             // 

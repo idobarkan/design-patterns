@@ -77,7 +77,7 @@
             // messageLabel
             // 
             messageLabel.AutoSize = true;
-            messageLabel.Location = new System.Drawing.Point(143, 41);
+            messageLabel.Location = new System.Drawing.Point(108, 41);
             messageLabel.Name = "messageLabel";
             messageLabel.Size = new System.Drawing.Size(53, 13);
             messageLabel.TabIndex = 2;
@@ -86,7 +86,7 @@
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(143, 10);
+            nameLabel.Location = new System.Drawing.Point(108, 10);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new System.Drawing.Size(38, 13);
             nameLabel.TabIndex = 5;
@@ -162,12 +162,12 @@
             // 
             // listBoxCheckinByPlace
             // 
-            this.listBoxCheckinByPlace.BackColor = System.Drawing.Color.Orange;
+            this.listBoxCheckinByPlace.BackColor = System.Drawing.Color.Bisque;
             this.listBoxCheckinByPlace.DataSource = this.checkinBindingSource;
             this.listBoxCheckinByPlace.FormattingEnabled = true;
             this.listBoxCheckinByPlace.Location = new System.Drawing.Point(15, 240);
             this.listBoxCheckinByPlace.Name = "listBoxCheckinByPlace";
-            this.listBoxCheckinByPlace.Size = new System.Drawing.Size(567, 147);
+            this.listBoxCheckinByPlace.Size = new System.Drawing.Size(567, 95);
             this.listBoxCheckinByPlace.TabIndex = 64;
             this.listBoxCheckinByPlace.SelectedIndexChanged += new System.EventHandler(this.listBoxCheckinByPlace_SelectedIndexChanged);
             // 
@@ -207,7 +207,7 @@
             this.comboBoxSortBy.FormattingEnabled = true;
             this.comboBoxSortBy.Items.AddRange(new object[] {
             "CreatedTime",
-            "CommentCount"});
+            "CommentsCount"});
             this.comboBoxSortBy.Location = new System.Drawing.Point(404, 176);
             this.comboBoxSortBy.Name = "comboBoxSortBy";
             this.comboBoxSortBy.Size = new System.Drawing.Size(121, 21);
@@ -235,7 +235,7 @@
             this.linkLabelComments.Enabled = false;
             this.linkLabelComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.linkLabelComments.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.linkLabelComments.Location = new System.Drawing.Point(24, 418);
+            this.linkLabelComments.Location = new System.Drawing.Point(18, 360);
             this.linkLabelComments.Name = "linkLabelComments";
             this.linkLabelComments.Size = new System.Drawing.Size(144, 13);
             this.linkLabelComments.TabIndex = 74;
@@ -249,7 +249,7 @@
             this.linkLabelLikes.Enabled = false;
             this.linkLabelLikes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.linkLabelLikes.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.linkLabelLikes.Location = new System.Drawing.Point(352, 418);
+            this.linkLabelLikes.Location = new System.Drawing.Point(346, 360);
             this.linkLabelLikes.Name = "linkLabelLikes";
             this.linkLabelLikes.Size = new System.Drawing.Size(118, 13);
             this.linkLabelLikes.TabIndex = 75;
@@ -273,11 +273,11 @@
             // 
             // listBoxViewCheckinLikes
             // 
-            this.listBoxViewCheckinLikes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.listBoxViewCheckinLikes.BackColor = System.Drawing.Color.Bisque;
             this.listBoxViewCheckinLikes.DisplayMember = "Comments";
             this.listBoxViewCheckinLikes.FormattingEnabled = true;
             this.listBoxViewCheckinLikes.HorizontalScrollbar = true;
-            this.listBoxViewCheckinLikes.Location = new System.Drawing.Point(355, 434);
+            this.listBoxViewCheckinLikes.Location = new System.Drawing.Point(349, 376);
             this.listBoxViewCheckinLikes.Name = "listBoxViewCheckinLikes";
             this.listBoxViewCheckinLikes.ScrollAlwaysVisible = true;
             this.listBoxViewCheckinLikes.Size = new System.Drawing.Size(287, 121);
@@ -287,10 +287,10 @@
             // 
             // listBoxViewCheckinComments
             // 
-            this.listBoxViewCheckinComments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.listBoxViewCheckinComments.BackColor = System.Drawing.Color.Bisque;
             this.listBoxViewCheckinComments.FormattingEnabled = true;
             this.listBoxViewCheckinComments.HorizontalScrollbar = true;
-            this.listBoxViewCheckinComments.Location = new System.Drawing.Point(27, 434);
+            this.listBoxViewCheckinComments.Location = new System.Drawing.Point(21, 376);
             this.listBoxViewCheckinComments.Name = "listBoxViewCheckinComments";
             this.listBoxViewCheckinComments.ScrollAlwaysVisible = true;
             this.listBoxViewCheckinComments.Size = new System.Drawing.Size(287, 121);
@@ -316,18 +316,22 @@
             // 
             // messageTextBox
             // 
+            this.messageTextBox.BackColor = System.Drawing.SystemColors.Info;
             this.messageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.checkinBindingSource, "Message", true));
-            this.messageTextBox.Location = new System.Drawing.Point(224, 38);
+            this.messageTextBox.Location = new System.Drawing.Point(189, 38);
             this.messageTextBox.Multiline = true;
             this.messageTextBox.Name = "messageTextBox";
-            this.messageTextBox.Size = new System.Drawing.Size(145, 80);
+            this.messageTextBox.ReadOnly = true;
+            this.messageTextBox.Size = new System.Drawing.Size(145, 54);
             this.messageTextBox.TabIndex = 3;
             // 
             // nameTextBox
             // 
+            this.nameTextBox.BackColor = System.Drawing.SystemColors.Info;
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.checkinBindingSource, "From.Name", true));
-            this.nameTextBox.Location = new System.Drawing.Point(224, 7);
+            this.nameTextBox.Location = new System.Drawing.Point(189, 7);
             this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.ReadOnly = true;
             this.nameTextBox.Size = new System.Drawing.Size(145, 20);
             this.nameTextBox.TabIndex = 6;
             // 
@@ -336,12 +340,13 @@
             this.imageNormalPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.checkinBindingSource, "From.ImageNormal", true));
             this.imageNormalPictureBox.Location = new System.Drawing.Point(453, 240);
             this.imageNormalPictureBox.Name = "imageNormalPictureBox";
-            this.imageNormalPictureBox.Size = new System.Drawing.Size(129, 147);
+            this.imageNormalPictureBox.Size = new System.Drawing.Size(102, 95);
             this.imageNormalPictureBox.TabIndex = 4;
             this.imageNormalPictureBox.TabStop = false;
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Bisque;
             this.panel1.Controls.Add(nameLabel);
             this.panel1.Controls.Add(this.nameTextBox);
             this.panel1.Controls.Add(messageLabel);
@@ -349,7 +354,7 @@
             this.panel1.Controls.Add(imageNormalLabel);
             this.panel1.Location = new System.Drawing.Point(453, 240);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(463, 147);
+            this.panel1.Size = new System.Drawing.Size(463, 95);
             this.panel1.TabIndex = 82;
             // 
             // FindCheckinByLocationForm
@@ -357,7 +362,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1094, 750);
+            this.ClientSize = new System.Drawing.Size(1094, 513);
             this.Controls.Add(this.imageNormalPictureBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonFindLocation);

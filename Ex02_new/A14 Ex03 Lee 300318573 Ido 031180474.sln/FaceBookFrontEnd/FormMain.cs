@@ -11,6 +11,7 @@ using FacebookWrapper;
 using FaceBookBackEnd;
 using FindTagsAround;
 using FaceBookFrontEnd;
+using System.Threading;
 
 namespace BasicFacebookFeatures.WithSingltonAppSettings
 {
@@ -86,16 +87,19 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private void linkFriends_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            fetchFriends();
+            new Thread(fetchFriends).Start();
         }
 
         private void fetchFriends()
         {
-            /// this operation is the operation that takes time, and should be executed in the separate thread 
             var allFriends = m_LoggedInUser.Friends;
+            
             if (!listBoxFriends.InvokeRequired)
             {
-                // binding the data source of the binding source, to our data source: userBindingSource.DataSource = allFriends; } else { // In case of cross-thread operation, invoking the binding code on the listBox's thread: 
+                listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
+            }
+            else
+            {
                 listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
             }
         }
@@ -103,7 +107,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
         private void labelEvents_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            fetchEvents();
+            new Thread(fetchEvents).Start();
         }
 
         private void fetchEvents()
@@ -113,29 +117,31 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             {
                 listBoxEvents.Invoke(new Action(() => eventBindingSource.DataSource = allEvents));
             }
-        }
-
-        private void listBoxEvents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxEvents.SelectedItems.Count == 1)
+            else
             {
-                Event selectedEvent = listBoxEvents.SelectedItem as Event;
+                listBoxEvents.Invoke(new Action(() => userBindingSource.DataSource = allEvents));
             }
         }
 
+       
         private void fetchCheckins()
         {
-            foreach (Checkin checkin in m_LoggedInUser.Checkins)
+            var allCheckins = m_LoggedInUser.Checkins;
+            listBoxCheckins.Invoke(new Action(() =>
             {
-                listBoxCheckins.Items.Add(checkin);
-            }
+                foreach (Checkin checkin in m_LoggedInUser.Checkins)
+                {
+                    listBoxCheckins.Items.Add(checkin);
+                }
+
+            }));
         }
 
         private void linkLabelCheckins_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             listBoxCheckins.Items.Clear();
             Cursor.Current = Cursors.WaitCursor;
-            fetchCheckins();
+            new Thread(fetchCheckins).Start();
         }
 
         private void linkLabelNewsFedds_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

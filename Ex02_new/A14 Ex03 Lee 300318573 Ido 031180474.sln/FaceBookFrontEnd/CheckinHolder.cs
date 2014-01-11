@@ -15,7 +15,7 @@ namespace FaceBookFrontEnd
         private List<GoogleMapsReference> m_UserAddressSuggestions;
         private List<Checkin> m_RecentCheckins;
         private List<Checkin> m_CheckinByPlace;
-        
+
         public List<Checkin> RecentCheckins
         {
             get { return m_RecentCheckins; }
@@ -30,13 +30,13 @@ namespace FaceBookFrontEnd
         {
             get { return m_CheckinByPlace; }
         }
-        
+
         internal void setUserAddresses(String i_UserInput)
         {
             GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
             m_UserAddressSuggestions = locationPrvdr.GetLocationSuggestions(i_UserInput);
         }
-        
+
         private string findUserReferenceLocation(String i_AddressSelected)
         {
             String reference = String.Empty;
@@ -55,7 +55,7 @@ namespace FaceBookFrontEnd
             FacebookCheckInVicinityProvider fbVicinityProv = new FacebookCheckInVicinityProvider();
             m_RecentCheckins = fbVicinityProv.getAllUserFriendsRecentTags(i_LoggedUser, i_Date, i_SortBy, i_MaxCount);
         }
-        
+
         internal void setAllCheckinByPlace(String userLocation, double userDistance, String addressSelected)
         {
             GoogleMapsFacade locationPrvdr = new GoogleMapsFacade();
@@ -64,7 +64,7 @@ namespace FaceBookFrontEnd
             Coordinate userCoordinates = locationPrvdr.GetLocationCoordinates(reference);
             Coordinate friendCoordinate = null;
             m_CheckinByPlace = new List<Checkin>();
-                  
+
             foreach (var checkin in RecentCheckins)
             {
                 if (checkin.Place.Location.Latitude == null || checkin.Place.Location.Longitude == null)
