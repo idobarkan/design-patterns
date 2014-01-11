@@ -83,6 +83,7 @@ namespace FaceBookFrontEnd
             m_CheckinHolder.setAllCheckinByPlace(UserLocation, UserDistance, listBoxAddressSuggestion.SelectedItem.ToString());
 
             var allCheckinByPlace = m_CheckinHolder.CheckinByPlace;
+            this.listBoxCheckinByPlace.DisplayMember = "Checkin";
             if (allCheckinByPlace != null)
             {
                 if (!listBoxCheckinByPlace.InvokeRequired)

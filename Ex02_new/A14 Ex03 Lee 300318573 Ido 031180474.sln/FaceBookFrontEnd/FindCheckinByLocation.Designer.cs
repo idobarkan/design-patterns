@@ -51,19 +51,46 @@
             this.listBoxViewCheckinLikes = new System.Windows.Forms.ListBox();
             this.listBoxViewCheckinComments = new System.Windows.Forms.ListBox();
             this.buttonFindLocation = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.messageTextBox = new System.Windows.Forms.TextBox();
-            this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             imageNormalLabel = new System.Windows.Forms.Label();
             messageLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.checkinBindingSource)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // imageNormalLabel
+            // 
+            imageNormalLabel.AutoSize = true;
+            imageNormalLabel.Location = new System.Drawing.Point(-73, 68);
+            imageNormalLabel.Name = "imageNormalLabel";
+            imageNormalLabel.Size = new System.Drawing.Size(75, 13);
+            imageNormalLabel.TabIndex = 2;
+            imageNormalLabel.Text = "Image Normal:";
+            // 
+            // messageLabel
+            // 
+            messageLabel.AutoSize = true;
+            messageLabel.Location = new System.Drawing.Point(143, 41);
+            messageLabel.Name = "messageLabel";
+            messageLabel.Size = new System.Drawing.Size(53, 13);
+            messageLabel.TabIndex = 2;
+            messageLabel.Text = "Message:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new System.Drawing.Point(143, 10);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(38, 13);
+            nameLabel.TabIndex = 5;
+            nameLabel.Text = "Name:";
             // 
             // insertLocationLbl
             // 
@@ -137,7 +164,6 @@
             // 
             this.listBoxCheckinByPlace.BackColor = System.Drawing.Color.Orange;
             this.listBoxCheckinByPlace.DataSource = this.checkinBindingSource;
-            this.listBoxCheckinByPlace.DisplayMember = "Place";
             this.listBoxCheckinByPlace.FormattingEnabled = true;
             this.listBoxCheckinByPlace.Location = new System.Drawing.Point(15, 240);
             this.listBoxCheckinByPlace.Name = "listBoxCheckinByPlace";
@@ -283,41 +309,10 @@
             this.buttonFindLocation.UseVisualStyleBackColor = false;
             this.buttonFindLocation.Click += new System.EventHandler(this.buttonFindLocation_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.imageNormalPictureBox);
-            this.panel1.Controls.Add(nameLabel);
-            this.panel1.Controls.Add(this.nameTextBox);
-            this.panel1.Controls.Add(messageLabel);
-            this.panel1.Controls.Add(this.messageTextBox);
-            this.panel1.Controls.Add(imageNormalLabel);
-            this.panel1.Location = new System.Drawing.Point(588, 240);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(403, 179);
-            this.panel1.TabIndex = 82;
-            // 
             // commentsBindingSource
             // 
             this.commentsBindingSource.DataMember = "Comments";
             this.commentsBindingSource.DataSource = this.checkinBindingSource;
-            // 
-            // imageNormalLabel
-            // 
-            imageNormalLabel.AutoSize = true;
-            imageNormalLabel.Location = new System.Drawing.Point(-73, 68);
-            imageNormalLabel.Name = "imageNormalLabel";
-            imageNormalLabel.Size = new System.Drawing.Size(75, 13);
-            imageNormalLabel.TabIndex = 2;
-            imageNormalLabel.Text = "Image Normal:";
-            // 
-            // messageLabel
-            // 
-            messageLabel.AutoSize = true;
-            messageLabel.Location = new System.Drawing.Point(143, 41);
-            messageLabel.Name = "messageLabel";
-            messageLabel.Size = new System.Drawing.Size(53, 13);
-            messageLabel.TabIndex = 2;
-            messageLabel.Text = "Message:";
             // 
             // messageTextBox
             // 
@@ -328,24 +323,6 @@
             this.messageTextBox.Size = new System.Drawing.Size(145, 80);
             this.messageTextBox.TabIndex = 3;
             // 
-            // imageNormalPictureBox
-            // 
-            this.imageNormalPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.checkinBindingSource, "From.ImageNormal", true));
-            this.imageNormalPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.imageNormalPictureBox.Name = "imageNormalPictureBox";
-            this.imageNormalPictureBox.Size = new System.Drawing.Size(137, 179);
-            this.imageNormalPictureBox.TabIndex = 4;
-            this.imageNormalPictureBox.TabStop = false;
-            // 
-            // nameLabel
-            // 
-            nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(143, 10);
-            nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(38, 13);
-            nameLabel.TabIndex = 5;
-            nameLabel.Text = "Name:";
-            // 
             // nameTextBox
             // 
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.checkinBindingSource, "From.Name", true));
@@ -354,12 +331,34 @@
             this.nameTextBox.Size = new System.Drawing.Size(145, 20);
             this.nameTextBox.TabIndex = 6;
             // 
+            // imageNormalPictureBox
+            // 
+            this.imageNormalPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.checkinBindingSource, "From.ImageNormal", true));
+            this.imageNormalPictureBox.Location = new System.Drawing.Point(453, 240);
+            this.imageNormalPictureBox.Name = "imageNormalPictureBox";
+            this.imageNormalPictureBox.Size = new System.Drawing.Size(129, 147);
+            this.imageNormalPictureBox.TabIndex = 4;
+            this.imageNormalPictureBox.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(nameLabel);
+            this.panel1.Controls.Add(this.nameTextBox);
+            this.panel1.Controls.Add(messageLabel);
+            this.panel1.Controls.Add(this.messageTextBox);
+            this.panel1.Controls.Add(imageNormalLabel);
+            this.panel1.Location = new System.Drawing.Point(453, 240);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(463, 147);
+            this.panel1.TabIndex = 82;
+            // 
             // FindCheckinByLocationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1094, 750);
+            this.Controls.Add(this.imageNormalPictureBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonFindLocation);
             this.Controls.Add(this.listBoxViewCheckinComments);
@@ -382,10 +381,10 @@
             this.Name = "FindCheckinByLocationForm";
             this.Text = "FindCheckinByLocation";
             ((System.ComponentModel.ISupportInitialize)(this.checkinBindingSource)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,10 +411,10 @@
         private System.Windows.Forms.ListBox listBoxViewCheckinComments;
         private System.Windows.Forms.Button buttonFindLocation;
         private System.Windows.Forms.BindingSource checkinBindingSource;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.BindingSource commentsBindingSource;
-        private System.Windows.Forms.PictureBox imageNormalPictureBox;
-        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox messageTextBox;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.PictureBox imageNormalPictureBox;
+        private System.Windows.Forms.Panel panel1;
     }
 }
