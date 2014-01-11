@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FacebookWrapper.ObjectModel;
+using System.Collections.Concurrent;
+
+namespace FaceBookBackEnd
+{
+    public interface IFriendSuggestionsProvider
+    {
+        void GetSuggestionsAsync<T, TKey>(eRecommendationSource i_Source, User i_LoggedInUser, Func<T, TKey> i_OrderByFunc);
+<<<<<<< HEAD
+        ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action d);
+    }
+}
+=======
+        ConcurrentQueue<User> RegisterForRecommendations(eRecommendationSource i_Source, Action i_Callback);
+    }
+}
+>>>>>>> 6fb7f44de89b4018f38a3328244c06b8b12e1bb2
