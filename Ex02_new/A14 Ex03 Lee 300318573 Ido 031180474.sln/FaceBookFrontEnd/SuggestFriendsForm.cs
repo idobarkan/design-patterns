@@ -33,7 +33,7 @@ namespace FaceBookFrontEnd
             this.m_ErrorProvider = new ErrorProvider();
         }
 
-        private bool validateControls(Func<String, bool> isValid, params Control[] ControlsToValidate)
+        private bool validateControls(Func<string, bool> isValid, params Control[] ControlsToValidate)
         {
             bool isControlsValid = true;
             
@@ -47,7 +47,7 @@ namespace FaceBookFrontEnd
                 }
                 else
                 {
-                    m_ErrorProvider.SetError(control, String.Empty);
+                    m_ErrorProvider.SetError(control, string.Empty);
                     m_ErrorProvider.Clear();
                 }
             }

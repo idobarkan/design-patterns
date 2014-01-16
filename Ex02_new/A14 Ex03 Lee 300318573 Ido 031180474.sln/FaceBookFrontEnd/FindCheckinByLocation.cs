@@ -201,7 +201,7 @@ namespace FaceBookFrontEnd
             if (listBoxAddressSuggestion.SelectedItems.Count == 1)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                m_Util.enableControls(ButtonCheckin);
+                this.m_Util.enableControls(ButtonCheckin);
             }
         }
 
