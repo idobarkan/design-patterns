@@ -91,7 +91,7 @@ namespace FaceBookFrontEnd
             this.listBoxCheckinByPlace.DisplayMember = "Checkin";
             var allCheckinByPlace = this.m_CheckinHolder.CheckinByPlace;
 
-            if (allCheckinByPlace != null)
+            if (allCheckinByPlace.Count != 0)
             {
                 if (!this.listBoxCheckinByPlace.InvokeRequired)
                 {
@@ -104,7 +104,7 @@ namespace FaceBookFrontEnd
             }
             else
             {
-                MessageBox.Show(Utilities.Sr_Messages);
+                MessageBox.Show(Utilities.Sr_NoCheckinsFound);
             }
         }
 
@@ -135,15 +135,15 @@ namespace FaceBookFrontEnd
                 Checkin selectedCheckin = this.listBoxCheckinByPlace.SelectedItem as Checkin;
                 foreach (Comment comment in selectedCheckin.Comments)
                 {
-                    listBoxViewCheckinComments.Items.Add(comment);
+                    this.listBoxViewCheckinComments.Items.Add(comment);
                 }
 
-                if (listBoxViewCheckinComments.Items.Count == 0)
+                if (this.listBoxViewCheckinComments.Items.Count == 0)
                 {
-                    listBoxViewCheckinComments.Items.Add(this.m_Util.noItem(Utilities.Sr_Comments));
+                    this.listBoxViewCheckinComments.Items.Add(this.m_Util.noItem(Utilities.Sr_Comments));
                 }
 
-                listBoxViewCheckinComments.Visible = true;
+                this.listBoxViewCheckinComments.Visible = true;
             }
         }
 

@@ -66,7 +66,7 @@ namespace FaceBookFrontEnd
 
         private void suggestFriendsByPhotos()
         {
-            bool isValid = this.validateControls(this.m_Util.isValidNunber, textBoxMaxResults);
+            bool isValid = this.validateControls(this.m_Util.isValidNunber, this.textBoxMaxResults);
             
             if (isValid)
             {

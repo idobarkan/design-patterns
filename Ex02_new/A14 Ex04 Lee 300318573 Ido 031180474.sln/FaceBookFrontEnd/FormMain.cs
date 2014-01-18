@@ -33,7 +33,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
             picture_smallPictureBox.LoadAsync(this.m_LoggedInUser.PictureNormalURL);
             if (this.m_LoggedInUser.Statuses.Count > 0)
             {
-                textBoxStatus.Text = this.m_LoggedInUser.Statuses[0].Message;
+                this.textBoxStatus.Text = this.m_LoggedInUser.Statuses[0].Message;
             }
         }
 
@@ -51,7 +51,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
 
         private void buttonSetStatus_Click(object sender, EventArgs e)
         {
-            this.m_LoggedInUser.PostStatus(textBoxStatus.Text);
+            this.m_LoggedInUser.PostStatus(this.textBoxStatus.Text);
         }
 
         private void fetchNewsFeed()
@@ -65,21 +65,21 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
                 if (post.Message != null)
                 {
                     postInfo.Append(post.From).Append(": ").Append(post.Message);
-                    listBoxNewsFeed.Items.Add(postInfo);
+                    this.listBoxNewsFeed.Items.Add(postInfo);
                 }
                 else if (post.Caption != null)
                 {
                     postInfo.Append(post.From).Append(": ").Append(post.Caption);
-                    listBoxNewsFeed.Items.Add(postInfo);
+                    this.listBoxNewsFeed.Items.Add(postInfo);
                 }
                 else if (post.Link != null)
                 {
                     postInfo.Append(post.From).Append(": ").Append(post.Link);
-                    listBoxNewsFeed.Items.Add(postInfo);
+                    this.listBoxNewsFeed.Items.Add(postInfo);
                 }
                 else
                 {
-                    listBoxNewsFeed.Items.Add(string.Format("[{0}]", post.Type));
+                    this.listBoxNewsFeed.Items.Add(string.Format("[{0}]", post.Type));
                 }
             }
         }
@@ -96,11 +96,11 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
 
             if (!this.listBoxFriends.InvokeRequired)
             {
-                this.listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
+                this.listBoxFriends.Invoke(new Action(() => this.userBindingSource.DataSource = allFriends));
             }
             else
             {
-                this.listBoxFriends.Invoke(new Action(() => userBindingSource.DataSource = allFriends));
+                this.listBoxFriends.Invoke(new Action(() => this.userBindingSource.DataSource = allFriends));
             }
         }
 
@@ -144,7 +144,7 @@ namespace BasicFacebookFeatures.WithSingltonAppSettings
 
         private void linkLabelNewsFedds_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            listBoxNewsFeed.Items.Clear();
+            this.listBoxNewsFeed.Items.Clear();
             Cursor.Current = Cursors.WaitCursor;
             this.fetchNewsFeed();
         }

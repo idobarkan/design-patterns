@@ -18,6 +18,7 @@ namespace FaceBookFrontEnd
         internal static readonly string Sr_Likes = "Likes";
         internal static readonly string Sr_Comments = "Comments";
         internal static readonly string Sr_Messages = "Messages";
+        internal static readonly string Sr_NoCheckinsFound = "No Checkin found arround this area";
         
         internal void clearListBox(params ListBox[] listBoxex)
         {
